@@ -55,10 +55,8 @@
         <button class="btn btn-lg px-5 w-100 text-light " style="background-color: #333C83" type="submit">
             <b>Simpan</b></button>
     </form>
-</div>
-
-<div>
-    <p class="mb-0 mt-3">Sudah punya akun.? <a href="{{ url('/login') }}" class="text-white-50 fw-bold">Login</a>
-    </p>
-</div>
+    <div>
+        <p class="mb-0 mt-3">Sudah punya akun.? <a href="{{ url('/login') }}" class="text-white-50 fw-bold">Login</a>
+        </p>
+    </div>
 </div>

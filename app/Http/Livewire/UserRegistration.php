@@ -17,11 +17,11 @@ class UserRegistration extends Component
         'password' => 'required|min:6',
         'password_confirmation' => 'required|min:6|same:password',
     ];
+    
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
     }
-
 
     public function render()
     {
