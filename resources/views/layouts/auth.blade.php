@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="{{ asset('asset/bootstrap') }}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('asset/bootstrap') }}/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/custom-style.css') }}">
-    <title>{{ env('APP_NAME') }} | @yield('title')</title>
+    <title>{{ env('APP_NAME') }} - @yield('title')</title>
     @livewireStyles
 </head>
 
@@ -18,7 +18,7 @@
     @yield('content')
 
 
-    <script src="{{ asset('asset/bootstrap') }}/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('asset/bootstrap') }}/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
