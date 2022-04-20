@@ -21,6 +21,8 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('asset/sb-admin') }}/css/sb-admin-2.min.css" rel="stylesheet">
 
+    @yield('datatableStyle')
+
 </head>
 
 <body id="page-top">
@@ -107,8 +109,10 @@
     <script src="{{ asset('asset/sb-admin') }}/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{ asset('asset/sb-admin') }}/js/demo/chart-area-demo.js"></script>
-    <script src="{{ asset('asset/sb-admin') }}/js/demo/chart-pie-demo.js"></script>
+    {{-- <script src="{{ asset('asset/sb-admin') }}/js/demo/chart-area-demo.js"></script> --}}
+    {{-- <script src="{{ asset('asset/sb-admin') }}/js/demo/chart-pie-demo.js"></script> --}}
+
+    @yield('datatableScript')
 
 </body>
 

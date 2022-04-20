@@ -18,6 +18,13 @@
             <span>Dashboard</span></a>
     </li>
 
+    <!-- Nav Item - Data -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ url('/benang-datang') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Benang Datang</span></a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 

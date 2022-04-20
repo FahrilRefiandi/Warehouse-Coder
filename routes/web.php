@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BarangDatangController;
 
 
 /*
@@ -21,5 +22,7 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::resource('/benang-datang', BarangDatangController::class)->middleware(['wh1']);
 
 require __DIR__.'/auth.php';
