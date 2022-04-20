@@ -17,11 +17,14 @@ class wh1
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->role == 0) {
-            return $next($request);
+        if(Auth::user() != null){
+            if (Auth::user()->role == 0) {
+                return $next($request);
+            }else{
+                return redirect('/dashboard');
+            }
         }else{
-            return redirect('/dashboard');
+            return redirect('/login');
         }
-        // return $next($request);
     }
 }

@@ -14,7 +14,7 @@
 
         <nav class="navbar mb-1" style="margin-top: -20px">
             <a class="navbar-brand"></a>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Barang
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Benang
                 Datang</button>
         </nav>
 
@@ -52,7 +52,7 @@
                                 {{-- <th>Nama Barang</th> --}}
                                 <th>Jumlah Benang</th>
                                 <th>Warna Benang</th>
-                                <th>Tgl</th>
+                                <th>Benang Datang</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -63,7 +63,7 @@
                                 {{-- <th>Nama Benang</th> --}}
                                 <th>Jumlah Benang</th>
                                 <th>Warna Benang</th>
-                                <th>Tgl</th>
+                                <th>Benang Datang</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -76,7 +76,7 @@
                                     <td>{{ $item->warna_benang }}</td>
                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:m  D-MM-Y') }}</td>
                                     <td class="text-center" style="width:10%" >
-                                        <a href="{{ url("/benang-datang/$item->id") }}" class="btn btn-outline-primary"> <i class="fas fa-pencil-alt"></i></a>
+                                        <a href="{{ url("/benang-datang/$item->id") }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
                                         <form action="{{ url("/benang-datang/$item->id") }}" method="post" class="d-inline" >
                                         @csrf
                                         @method('delete')
@@ -109,16 +109,34 @@
                 </div>
                 <div class="modal-body">
 
+                    {{-- cek error validation and show modal if error --}}
+                    @if ($errors->any())
+                    @section('modalErrorValidation')
+                    <script type="text/javascript">
+                            $(window).on('load', function() {
+                                $('#staticBackdrop').modal('show');
+                            });
+                            </script>
+                        @endsection
+                        @endif
+                    {{-- cek error validation and show modal if error --}}
+
                     <form action="{{ route('benang-datang.store') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Kategori Barang</label>
+                            <label for="exampleInputEmail1">Kategori Benang<small class="text-danger" style="font-size: 18px">*</small></label>
                             <select class="custom-select" name="jenis_benang">
-                                <option selected>---Pilih Kategori---</option>
+                                <option value="">---Pilih Kategori---</option>
                                 @foreach ($kategoriBenang as $item)
+                                    @if (old('jenis_benang') == $item->id)
+                                        <option value="{{ $item->id }}" selected>{{ $item->jenis_benang }}</option>
+                                    @endif
                                     <option value="{{ $item->id }}">{{ $item->jenis_benang }}</option>
                                 @endforeach
                             </select>
+                            @error('jenis_benang')
+                                <small class="text-danger ml-3" >{{$message}}</small>
+                            @enderror
                             {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                                 else.</small> --}}
                         </div>
@@ -126,31 +144,46 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Jumlah Benang</label>
-                                    <input type="number" class="form-control" name="jumlah_benang" placeholder="100" >
+                                    <label for="exampleInputPassword1">Jumlah Benang<small class="text-danger" style="font-size: 18px">*</small></label>
+                                    <input type="number" class="form-control" name="jumlah_benang" placeholder="100" value="{{ old('jumlah_benang') }}" >
+                                    @error('jumlah_benang')
+                                        <small class="text-danger ml-3" >{{$message}}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Satuan Benang</label>
+                                    <label for="exampleInputPassword1">Satuan Benang<small class="text-danger" style="font-size: 18px">*</small></label>
                                     <select class="custom-select" name="satuan_benang">
-                                        <option selected>---Pilih Satuan---</option>
+                                        <option value="" >---Pilih Satuan---</option>
                                         @foreach ($satuanBenang as $item)
+                                            @if (old('satuan_benang') == $item->id)
+                                                <option value="{{ $item->id }}" selected>{{ $item->satuan }}</option>
+                                            @endif
                                             <option value="{{ $item->id }}">{{ $item->satuan }}</option>
                                         @endforeach
                                     </select>
+                                    @error('satuan_benang')
+                                        <small class="text-danger ml-3" >{{$message}}</small>
+                                    @enderror
                                 </div>
                             </div>
                           </div>
 
                           <div class="form-group">
-                            <label for="exampleInputPassword1">Warna Benang</label>
+                            <label for="exampleInputPassword1">Warna Benang<small class="text-danger" style="font-size: 18px">*</small></label>
                             <select class="custom-select" name="warna_benang">
-                                <option selected>---Pilih Warna Benang---</option>
+                                <option value="" >---Pilih Warna Benang---</option>
                                 @foreach ($warnaBenang as $item)
+                                    @if (old('warna_benang') == $item->id)
+                                        <option value="{{ $item->id }}" selected>{{ $item->warna_benang }}</option>
+                                    @endif
                                     <option value="{{ $item->id }}">{{ $item->warna_benang }}</option>
                                 @endforeach
                             </select>
+                            @error('warna_benang')
+                                <small class="text-danger ml-3" >{{$message}}</small>
+                            @enderror
                         </div>
 
                 </div>
@@ -163,16 +196,16 @@
         </div>
     </div>
     {{-- modal --}}
-
-
 @endsection
 
 
 @section('datatableStyle')
     <link href="{{ asset('asset/sb-admin') }}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    @livewireStyles
 @endsection
 
 @section('datatableScript')
+    @livewireScripts
     <script src="{{ asset('asset/sb-admin') }}/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="{{ asset('asset/sb-admin') }}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="{{ asset('asset/sb-admin') }}/js/demo/datatables-demo.js"></script>

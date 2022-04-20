@@ -27,9 +27,8 @@ class BarangDatangController extends Controller
         $kategoriBenang=JenisBenang::orderBy('jenis_benang','asc')->get();
         $satuanBenang=SatuanBenang::orderBy('satuan','asc')->get();
         $warnaBenang=WarnaBenang::orderBy('warna_benang','asc')->get();
-        return view('backend.barang-datang',compact('data','kategoriBenang','satuanBenang','warnaBenang'));
+        return view('backend.benang-datang',compact('data','kategoriBenang','satuanBenang','warnaBenang'));
 
-        // $data=BarangDatang::findOrFail(1);
         // dd($data->satuanBenang->singkatan,
         // $data->warnaBenang->warna_benang,
         // $data->jenisBenang->jenis_benang);
@@ -79,7 +78,11 @@ class BarangDatangController extends Controller
      */
     public function show($id)
     {
-        //
+        $data=BarangDatang::findOrFail($id);
+        $kategoriBenang=JenisBenang::orderBy('jenis_benang','asc')->get();
+        $satuanBenang=SatuanBenang::orderBy('satuan','asc')->get();
+        $warnaBenang=WarnaBenang::orderBy('warna_benang','asc')->get();
+        return view('backend.edit-benang-datang',compact('data','kategoriBenang', 'satuanBenang', 'warnaBenang'));
     }
 
     /**
@@ -90,7 +93,7 @@ class BarangDatangController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -102,7 +105,22 @@ class BarangDatangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'jenis_benang' => 'required|numeric',
+            'jumlah_benang' => 'required|numeric',
+            'satuan_benang' => 'required|numeric',
+            'warna_benang' => 'required|numeric',
+        ]);
+
+        BarangDatang::where('id',$id)->update([
+            'jenis_benang_id' => $request->jenis_benang,
+            'jumlah_benang' => $request->jumlah_benang,
+            'satuan_id' => $request->satuan_benang,
+            'warna_benang_id' => $request->warna_benang,
+        ]);
+
+        return redirect('/benang-datang')->with('tambah',"Data berhasil diubah");
+
     }
 
     /**
