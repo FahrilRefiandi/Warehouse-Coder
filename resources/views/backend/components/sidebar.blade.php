@@ -78,7 +78,7 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Barang:</h6>
-                <a class="collapse-item" href="{{url('/barang')}}">Barang</a>
+                <a class="collapse-item" href="{{url('/jenis-benang')}}">Jenis Benang</a>
                 <a class="collapse-item" href="{{url('/kategori-barang')}}">Kategori Barang</a>
                 <a class="collapse-item" href="{{url('/satuan-barang')}}">Satuan Barang</a>
                 {{-- <a class="collapse-item" href="register.html">Register</a>

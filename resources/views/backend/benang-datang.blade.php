@@ -102,7 +102,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Barang Datang</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Benang Datang</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -125,7 +125,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputEmail1">Kategori Benang<small class="text-danger" style="font-size: 18px">*</small></label>
-                            <select class="custom-select" name="jenis_benang">
+                            <select class="custom-select" name="jenis_benang" autofocus>
                                 <option value="">---Pilih Kategori---</option>
                                 @foreach ($kategoriBenang as $item)
                                     @if (old('jenis_benang') == $item->id)
@@ -137,15 +137,13 @@
                             @error('jenis_benang')
                                 <small class="text-danger ml-3" >{{$message}}</small>
                             @enderror
-                            {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                                else.</small> --}}
                         </div>
 
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Jumlah Benang<small class="text-danger" style="font-size: 18px">*</small></label>
-                                    <input type="number" class="form-control" name="jumlah_benang" placeholder="100" value="{{ old('jumlah_benang') }}" >
+                                    <input type="number" class="form-control" name="jumlah_benang" placeholder="100" value="{{ old('jumlah_benang') }}" autofocus>
                                     @error('jumlah_benang')
                                         <small class="text-danger ml-3" >{{$message}}</small>
                                     @enderror
@@ -154,7 +152,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Satuan Benang<small class="text-danger" style="font-size: 18px">*</small></label>
-                                    <select class="custom-select" name="satuan_benang">
+                                    <select class="custom-select" name="satuan_benang" autofocus>
                                         <option value="" >---Pilih Satuan---</option>
                                         @foreach ($satuanBenang as $item)
                                             @if (old('satuan_benang') == $item->id)
@@ -172,7 +170,7 @@
 
                           <div class="form-group">
                             <label for="exampleInputPassword1">Warna Benang<small class="text-danger" style="font-size: 18px">*</small></label>
-                            <select class="custom-select" name="warna_benang">
+                            <select class="custom-select" name="warna_benang" autofocus>
                                 <option value="" >---Pilih Warna Benang---</option>
                                 @foreach ($warnaBenang as $item)
                                     @if (old('warna_benang') == $item->id)

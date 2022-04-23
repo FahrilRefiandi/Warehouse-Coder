@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangDatangController;
+use App\Http\Controllers\JenisBenangController;
 
 
 /*
@@ -24,5 +25,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('/benang-datang', BarangDatangController::class)->middleware(['wh1']);
+
+Route::resource('/jenis-benang', JenisBenangController::class)->middleware(['wh1']);
 
 require __DIR__.'/auth.php';

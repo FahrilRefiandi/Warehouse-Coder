@@ -114,6 +114,8 @@
     {{-- <script src="{{ asset('asset/sb-admin') }}/js/demo/chart-area-demo.js"></script> --}}
     {{-- <script src="{{ asset('asset/sb-admin') }}/js/demo/chart-pie-demo.js"></script> --}}
 
+    @yield('scriptCustom')
+
     @yield('datatableScript')
 
 </body>
