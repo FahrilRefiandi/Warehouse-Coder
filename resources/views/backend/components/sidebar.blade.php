@@ -80,6 +80,7 @@
                 <h6 class="collapse-header">Barang:</h6>
                 <a class="collapse-item" href="{{url('/jenis-benang')}}">Jenis Benang</a>
                 <a class="collapse-item" href="{{url('/warna-benang')}}">Warna Benang</a>
+                <a class="collapse-item" href="{{url('/satuan-benang')}}">Satuan Benang</a>
                 <a class="collapse-item" href="{{url('/kategori-barang')}}">Kategori Barang</a>
                 <a class="collapse-item" href="{{url('/satuan-barang')}}">Satuan Barang</a>
                 {{-- <a class="collapse-item" href="register.html">Register</a>
