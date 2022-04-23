@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangDatangController;
 use App\Http\Controllers\JenisBenangController;
+use App\Http\Controllers\WarnaBenangController;
 
 
 /*
@@ -27,5 +28,7 @@ Route::get('/dashboard', function () {
 Route::resource('/benang-datang', BarangDatangController::class)->middleware(['wh1']);
 
 Route::resource('/jenis-benang', JenisBenangController::class)->middleware(['wh1']);
+
+Route::resource('/warna-benang', WarnaBenangController::class)->middleware(['wh1']);
 
 require __DIR__.'/auth.php';

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JenisBenang;
 use Illuminate\Http\Request;
+use App\Models\WarnaBenang;
 
-class JenisBenangController extends Controller
+class WarnaBenangController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class JenisBenangController extends Controller
      */
     public function index()
     {
-        $data=JenisBenang::latest()->get();
-        return view('backend.jenis-benang',compact('data'));
+        $data=WarnaBenang::latest()->get();
+        return view('backend.warna-benang',compact('data'));
     }
 
     /**
@@ -27,13 +27,14 @@ class JenisBenangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jenis_benang' => 'required|unique:jenis_benang|string',
+            'warna_benang'=>'required|unique:warna_benang'
         ]);
 
-        JenisBenang::create($request->all());
+        WarnaBenang::create($request->all());
 
-        return redirect()->back()->with('tambah',"Data $request->jenis_benang Berhasil Ditambahkan");
+        return redirect()->back()->with('tambah',"Warna $request->warna_benang berhasil ditambahkan");
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -44,17 +45,15 @@ class JenisBenangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $val=$request->validate([
-            // 'id' => 'required',
-            'edit_jenis_benang' => ['required','string','unique:jenis_benang,jenis_benang,'.$request->id],
+        $request->validate([
+            'edit_warna_benang' => ['required','string','unique:warna_benang,warna_benang,'.$request->id],
         ]);
 
-
-        JenisBenang::where('id',$request->id)->update([
-            'jenis_benang' => $request->edit_jenis_benang,
+        WarnaBenang::where('id',$request->id)->update([
+            'warna_benang'=>$request->edit_warna_benang
         ]);
 
-        return redirect()->back()->with('tambah',"Data $request->edit_jenis_benang Berhasil Diubah");
+        return redirect()->back()->with('tambah',"Warna $request->edit_warna_benang berhasil diubah");
     }
 
     /**
@@ -65,7 +64,7 @@ class JenisBenangController extends Controller
      */
     public function destroy($id)
     {
-        JenisBenang::where('id',$id)->delete();
-        return redirect()->back()->with('hapus',"Data Berhasil Dihapus");
+        WarnaBenang::where('id',$id)->delete();
+        return redirect()->back()->with('hapus',"Warna berhasil dihapus");
     }
 }
