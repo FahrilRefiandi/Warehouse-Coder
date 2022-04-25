@@ -1,6 +1,6 @@
 @extends('backend.components.main')
 
-@section('title', 'Benang Datang')
+@section('title', 'Benang Dipakai')
 @section('content')
 
     <div class="container-fluid">
@@ -14,15 +14,14 @@
 
         <nav class="navbar mb-1" style="margin-top: -20px">
             <a class="navbar-brand"></a>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Benang
-                Datang</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Benang Dipakai</button>
         </nav>
 
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Data Benang Datang</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Data Benang Dipakai</h6>
             </div>
             <div class="card-body">
 
@@ -43,6 +42,7 @@
                   </div>
                 @endif
 
+
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead style="background-color: #6D70C6" class="text-light">
@@ -50,10 +50,10 @@
                                 <th style="width:5%">No</th>
                                 <th>Kategori Benang</th>
                                 {{-- <th>Nama Barang</th> --}}
-                                <th>Jumlah Benang</th>
                                 <th>Warna Benang</th>
-                                <th>Benang Datang</th>
-                                <th>Action</th>
+                                <th>Jumlah Pakai</th>
+                                <th>Waktu</th>
+                                {{-- <th>Action</th> --}}
                             </tr>
                         </thead>
                         <tfoot style="background-color: #6D70C6" class="text-light">
@@ -61,10 +61,10 @@
                                 <th>No</th>
                                 <th>Kategori Benang</th>
                                 {{-- <th>Nama Benang</th> --}}
-                                <th>Jumlah Benang</th>
                                 <th>Warna Benang</th>
-                                <th>Benang Datang</th>
-                                <th>Action</th>
+                                <th>Jumlah Pakai</th>
+                                <th>Waktu</th>
+                                {{-- <th>Action</th> --}}
                             </tr>
                         </tfoot>
                         <tbody>
@@ -72,17 +72,18 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->jenis_benang }}</td>
-                                    <td>{{ $item->jumlah_benang .' '. $item->singkatan }}</td>
                                     <td>{{ $item->warna_benang }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:m  D-MM-Y') }}</td>
-                                    <td class="text-center" style="width:10%" >
+                                    {{-- <td>{{ $item->jumlah_benang .' '. $item->singkatan }}</td> --}}
+                                    <td>{{ $item->jumlah_pakai .' '. $item->satuan }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:mm  D-MM-Y') }}</td>
+                                    {{-- <td class="text-center" style="width:10%" >
                                         <a href="{{ url("/benang-datang/$item->id") }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
-                                        <form action="{{ url("/benang-datang/$item->id") }}" method="post" class="d-inline" >
+                                        <form action="{{ url("/benang-dipakai/$item->id") }}" method="post" class="d-inline" >
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" onclick="return confirm('Anda yakin data {{ $item->jenis_benang .' '. $item->jumlah_benang .' '. $item->singkatan }} akan dihapus.?')" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                                        <button type="submit" onclick="return confirm('Anda yakin data {{ $item->jenis_benang .' '. $item->jumlah_pakai .' '. $item->singkatan }} akan dihapus.?')" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
                                         </form>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>
@@ -102,12 +103,28 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Benang Datang</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Benang Dipakai</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
+
+                    @if (session('kurang'))
+                    <div class="alert alert-danger mb-4 alert-dismissible fade show" role="alert">
+                        <strong>Gagal.</strong> {{session('kurang')}}.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      @section('modalErrorValidation')
+                      <script type="text/javascript">
+                              $(window).on('load', function() {
+                                  $('#staticBackdrop').modal('show');
+                              });
+                              </script>
+                          @endsection
+                    @endif
 
                     {{-- cek error validation and show modal if error --}}
                     @if ($errors->any())
@@ -121,68 +138,33 @@
                         @endif
                     {{-- cek error validation and show modal if error --}}
 
-                    <form action="{{ route('benang-datang.store') }}" method="post">
+                    <form action="{{ route('benang-dipakai.store') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Kategori Benang<small class="text-danger" style="font-size: 18px">*</small></label>
-                            <select class="custom-select" name="jenis_benang" autofocus>
-                                <option value="">---Pilih Kategori---</option>
-                                @foreach ($kategoriBenang as $item)
-                                    @if (old('jenis_benang') == $item->id)
-                                        <option value="{{ $item->id }}" selected>{{ $item->jenis_benang }}</option>
+                            <label for="exampleInputEmail1">Benang<small class="text-danger" style="font-size: 18px">*</small></label>
+                            <select class="custom-select" name="pilih_benang" autofocus>
+                                <option value="">---Pilih Benang---</option>
+                                @foreach ($benang as $item)
+                                    @if (old('pilih_benang') == $item->id)
+                                        <option value="{{ $item->id }}" selected>{{ $item->jenis_benang .' | '. $item->warna_benang .' | '.  $item->jumlah_benang.' '.$item->singkatan .' | '. \Carbon\Carbon::parse( $item->created_at)->isoFormat('D-MM-Y') }}</option>
                                     @endif
-                                    <option value="{{ $item->id }}">{{ $item->jenis_benang }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->jenis_benang .' | '. $item->warna_benang .' | '.  $item->jumlah_benang.' '.$item->singkatan .' | '. \Carbon\Carbon::parse( $item->created_at)->isoFormat('D-MM-Y') }}</option>
                                 @endforeach
                             </select>
-                            @error('jenis_benang')
+                            @error('pilih_benang')
                                 <small class="text-danger ml-3" >{{$message}}</small>
                             @enderror
                         </div>
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Jumlah Benang<small class="text-danger" style="font-size: 18px">*</small></label>
-                                    <input type="number" class="form-control" name="jumlah_benang" placeholder="100" value="{{ old('jumlah_benang') }}" autofocus>
-                                    @error('jumlah_benang')
-                                        <small class="text-danger ml-3" >{{$message}}</small>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Satuan Benang<small class="text-danger" style="font-size: 18px">*</small></label>
-                                    <select class="custom-select" name="satuan_benang" autofocus>
-                                        <option value="" >---Pilih Satuan---</option>
-                                        @foreach ($satuanBenang as $item)
-                                            @if (old('satuan_benang') == $item->id)
-                                                <option value="{{ $item->id }}" selected>{{ $item->satuan }}</option>
-                                            @endif
-                                            <option value="{{ $item->id }}">{{ $item->satuan }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('satuan_benang')
-                                        <small class="text-danger ml-3" >{{$message}}</small>
-                                    @enderror
-                                </div>
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="exampleInputPassword1">Warna Benang<small class="text-danger" style="font-size: 18px">*</small></label>
-                            <select class="custom-select" name="warna_benang" autofocus>
-                                <option value="" >---Pilih Warna Benang---</option>
-                                @foreach ($warnaBenang as $item)
-                                    @if (old('warna_benang') == $item->id)
-                                        <option value="{{ $item->id }}" selected>{{ $item->warna_benang }}</option>
-                                    @endif
-                                    <option value="{{ $item->id }}">{{ $item->warna_benang }}</option>
-                                @endforeach
-                            </select>
-                            @error('warna_benang')
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Jumlah Pakai<small class="text-danger" style="font-size: 18px">*</small></label>
+                            <input type="number" class="form-control" name="jumlah_pakai" placeholder="100" value="{{ old('jumlah_pakai') }}" autofocus>
+                            @error('jumlah_pakai')
                                 <small class="text-danger ml-3" >{{$message}}</small>
                             @enderror
                         </div>
+
+
 
                 </div>
                 <div class="modal-footer">

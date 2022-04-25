@@ -25,6 +25,13 @@
             <span>Benang Datang</span></a>
     </li>
 
+    <!-- Nav Item - Data -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ url('/benang-dipakai') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Benang Dipakai</span></a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -81,14 +88,15 @@
                 <a class="collapse-item" href="{{url('/jenis-benang')}}">Jenis Benang</a>
                 <a class="collapse-item" href="{{url('/warna-benang')}}">Warna Benang</a>
                 <a class="collapse-item" href="{{url('/satuan-benang')}}">Satuan Benang</a>
-                <a class="collapse-item" href="{{url('/kategori-barang')}}">Kategori Barang</a>
+
+                {{-- <a class="collapse-item" href="{{url('/kategori-barang')}}">Kategori Barang</a>
                 <a class="collapse-item" href="{{url('/satuan-barang')}}">Satuan Barang</a>
-                {{-- <a class="collapse-item" href="register.html">Register</a>
-                <a class="collapse-item" href="forgot-password.html">Forgot Password</a> --}}
+                <a class="collapse-item" href="register.html">Register</a>
+                <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                 <div class="collapse-divider"></div>
                 <h6 class="collapse-header">Other Pages:</h6>
                 <a class="collapse-item" href="404.html">404 Page</a>
-                <a class="collapse-item" href="blank.html">Blank Page</a>
+                <a class="collapse-item" href="blank.html">Blank Page</a> --}}
             </div>
         </div>
     </li>

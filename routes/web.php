@@ -5,6 +5,7 @@ use App\Http\Controllers\BarangDatangController;
 use App\Http\Controllers\JenisBenangController;
 use App\Http\Controllers\WarnaBenangController;
 use App\Http\Controllers\SatuanBenangController;
+use App\Http\Controllers\BenangDipakaiController;
 
 
 
@@ -34,5 +35,7 @@ Route::resource('/jenis-benang', JenisBenangController::class)->middleware(['wh1
 Route::resource('/warna-benang', WarnaBenangController::class)->middleware(['wh1']);
 
 Route::resource('/satuan-benang', SatuanBenangController::class)->middleware(['wh1']);
+
+Route::resource('/benang-dipakai', BenangDipakaiController::class)->middleware(['wh1']);
 
 require __DIR__.'/auth.php';
