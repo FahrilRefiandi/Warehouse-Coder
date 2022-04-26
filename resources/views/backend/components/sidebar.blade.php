@@ -32,6 +32,13 @@
             <span>Benang Dipakai</span></a>
     </li>
 
+    <!-- Nav Item - Data -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ url('/sarung') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Sarung</span></a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
