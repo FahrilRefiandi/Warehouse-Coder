@@ -13,7 +13,7 @@
 
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Data Satuan Benang</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Data Satuan.</h6>
             </div>
             <div class="card-body">
 
@@ -41,10 +41,11 @@
                         <thead style="background-color: #6D70C6" class="text-light">
                             <tr class="text-center" >
                                 <th style="width:5%">No</th>
-                                <th>Satuan Benang</th>
+                                <th>Satuan</th>
                                 <th>Singkatan</th>
                                 <th>Diupdate</th>
                                 <th>Dibuat</th>
+                                <th>Satuan</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -56,9 +57,10 @@
                                     <td>{{ $item->singkatan }}</td>
                                     <td>{{ \Carbon\Carbon::parse($item->updated_at)->isoFormat('HH:m  D-MM-Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:m  D-MM-Y') }}</td>
+                                    <td>{{ $item->status }}</td>
                                     <td class="text-center" style="width:10%" >
                                         <button  data-toggle="modal" data-target="#editModal" id="editSatuanBenang" data-id="{{$item->id }}" data-singkatan_benang="{{$item->singkatan }}" data-satuan_benang="{{$item->satuan }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></button>
-                                        <form action="{{ url("/satuan-benang/$item->id") }}" method="post" class="d-inline" >
+                                        <form action="{{ url("/satuan/$item->id") }}" method="post" class="d-inline" >
                                         @csrf
                                         @method('delete')
                                         <button type="submit" onclick="return confirm('Anda yakin data {{ $item->satuan }} akan dihapus.?')" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
@@ -89,7 +91,7 @@
           </div>
           <div class="modal-body">
 
-              <form  action="{{ route('satuan-benang.update' ,"update") }}" method="post">
+              <form  action="{{ route('satuan.update' ,"update") }}" method="post">
                   @csrf
                   @method('put')
 
@@ -97,7 +99,7 @@
                  <div class="row">
                      <div class="col">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Satuan Benang<small class="text-danger" style="font-size: 18px">*</small></label>
+                            <label for="exampleInputEmail1">Satuan<small class="text-danger" style="font-size: 18px">*</small></label>
                             <input type="text" class="form-control" name="edit_satuan_benang" id="edit_satuan_benang" placeholder="Meter" value="{{old('edit_satuan_benang')}}" autofocus>
                             @error('edit_satuan_benang')
                                 <small class="text-danger ml-3" >{{$message}}</small>
@@ -147,7 +149,7 @@
       <div class="modal-dialog modal-lg">
           <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabel">Satuan Benang</h5>
+                  <h5 class="modal-title" id="staticBackdropLabel">Satuan</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                   </button>
@@ -166,7 +168,7 @@
                       @endif
                   {{-- cek error validation and show modal if error --}}
 
-                  <form action="{{ route('satuan-benang.store') }}" method="post">
+                  <form action="{{ route('satuan.store') }}" method="post">
                       @csrf
 
                       <div class="row">
@@ -190,6 +192,19 @@
                             </div>
                           </div>
                       </div>
+
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Status<small class="text-danger" style="font-size: 18px">*</small></label>
+                        <select class="custom-select" name="satuan" autofocus>
+                            <option value="{{ old('satuan') }}" selected>{{ old('satuan',"-----Pilih Satuan-----") }}</option>
+                            <option value="panjang">Panjang</option>
+                            <option value="jumlah">Jumlah</option>
+                        </select>
+                        @error('satuan')
+                            <small class="text-danger ml-3" >{{$message}}</small>
+                        @enderror
+                    </div>
+
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>

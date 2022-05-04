@@ -44,10 +44,10 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Interface
+        Managemen Data
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
+    {{-- <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
             aria-controls="collapseTwo">
@@ -80,7 +80,7 @@
                 <a class="collapse-item" href="utilities-other.html">Other</a>
             </div>
         </div>
-    </li>
+    </li> --}}
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
@@ -91,10 +91,12 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Barang:</h6>
+                <h6 class="collapse-header">Managemen Data :</h6>
                 <a class="collapse-item" href="{{url('/jenis-benang')}}">Jenis Benang</a>
-                <a class="collapse-item" href="{{url('/warna-benang')}}">Warna Benang</a>
-                <a class="collapse-item" href="{{url('/satuan-benang')}}">Satuan Benang</a>
+                <a class="collapse-item" href="{{url('/warna')}}">Warna</a>
+                <a class="collapse-item" href="{{url('/satuan')}}">Satuan</a>
+                <h6 class="collapse-header">Data Sarung:</h6>
+                <a class="collapse-item" href="{{url('/motif-sarung')}}">Motif Sarung</a>
 
                 {{-- <a class="collapse-item" href="{{url('/kategori-barang')}}">Kategori Barang</a>
                 <a class="collapse-item" href="{{url('/satuan-barang')}}">Satuan Barang</a>

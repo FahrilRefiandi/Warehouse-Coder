@@ -6,6 +6,7 @@ use App\Http\Controllers\JenisBenangController;
 use App\Http\Controllers\WarnaBenangController;
 use App\Http\Controllers\SatuanBenangController;
 use App\Http\Controllers\BenangDipakaiController;
+use App\Http\Controllers\MotifSarungController;
 use App\Http\Controllers\SarungController;
 
 
@@ -31,11 +32,13 @@ Route::get('/dashboard', function () {
 
 Route::resource('/benang-datang', BarangDatangController::class)->middleware(['wh1']);
 
+// Management Data WH1
 Route::resource('/jenis-benang', JenisBenangController::class)->middleware(['wh1']);
+Route::resource('/warna', WarnaBenangController::class)->middleware(['wh1']);
+Route::resource('/satuan', SatuanBenangController::class)->middleware(['wh1']);
+Route::resource('/motif-sarung', MotifSarungController::class)->middleware(['wh1']);
+// Management Data WH1
 
-Route::resource('/warna-benang', WarnaBenangController::class)->middleware(['wh1']);
-
-Route::resource('/satuan-benang', SatuanBenangController::class)->middleware(['wh1']);
 
 Route::resource('/benang-dipakai', BenangDipakaiController::class)->middleware(['wh1']);
 

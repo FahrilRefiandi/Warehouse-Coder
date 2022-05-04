@@ -53,7 +53,7 @@
                                 <th>Warna Benang</th>
                                 <th>Jumlah Pakai</th>
                                 <th>Waktu</th>
-                                {{-- <th>Action</th> --}}
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tfoot style="background-color: #6D70C6" class="text-light">
@@ -64,7 +64,7 @@
                                 <th>Warna Benang</th>
                                 <th>Jumlah Pakai</th>
                                 <th>Waktu</th>
-                                {{-- <th>Action</th> --}}
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -75,15 +75,15 @@
                                     <td>{{ $item->warna_benang }}</td>
                                     {{-- <td>{{ $item->jumlah_benang .' '. $item->singkatan }}</td> --}}
                                     <td>{{ $item->jumlah_pakai .' '. $item->satuan }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:mm  D-MM-Y') }}</td>
-                                    {{-- <td class="text-center" style="width:10%" >
-                                        <a href="{{ url("/benang-datang/$item->id") }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
-                                        <form action="{{ url("/benang-dipakai/$item->id") }}" method="post" class="d-inline" >
+                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:mm  DD-MM-Y') }}</td>
+                                    <td class="text-center" style="width:10%" >
+                                        <a href="{{ url("/benang-dipakai/$item->id") }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
+                                        {{-- <form action="{{ url("/benang-dipakai/$item->id") }}" method="post" class="d-inline" >
                                         @csrf
                                         @method('delete')
                                         <button type="submit" onclick="return confirm('Anda yakin data {{ $item->jenis_benang .' '. $item->jumlah_pakai .' '. $item->singkatan }} akan dihapus.?')" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-                                        </form>
-                                    </td> --}}
+                                        </form> --}}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -140,15 +140,16 @@
 
                     <form action="{{ route('benang-dipakai.store') }}" method="post">
                         @csrf
+
                         <div class="form-group">
                             <label for="exampleInputEmail1">Benang<small class="text-danger" style="font-size: 18px">*</small></label>
                             <select class="custom-select" name="pilih_benang" autofocus>
                                 <option value="">---Pilih Benang---</option>
                                 @foreach ($benang as $item)
                                     @if (old('pilih_benang') == $item->id)
-                                        <option value="{{ $item->id }}" selected>{{ $item->jenis_benang .' | '. $item->warna_benang .' | '.  $item->jumlah_benang.' '.$item->singkatan .' | '. \Carbon\Carbon::parse( $item->created_at)->isoFormat('D-MM-Y') }}</option>
+                                        <option value="{{ $item->id }}" selected>{{ $item->jenis_benang .' | '. $item->warna_benang .' | '.  $item->jumlah_benang.' '.$item->singkatan .' | '. \Carbon\Carbon::parse( $item->created_at)->isoFormat('DD-MM-Y') }}</option>
                                     @endif
-                                    <option value="{{ $item->id }}">{{ $item->jenis_benang .' | '. $item->warna_benang .' | '.  $item->jumlah_benang.' '.$item->singkatan .' | '. \Carbon\Carbon::parse( $item->created_at)->isoFormat('D-MM-Y') }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->jenis_benang .' | '. $item->warna_benang .' | '.  $item->jumlah_benang.' '.$item->singkatan .' | '. \Carbon\Carbon::parse( $item->created_at)->isoFormat('DD-MM-Y') }}</option>
                                 @endforeach
                             </select>
                             @error('pilih_benang')
@@ -156,9 +157,10 @@
                             @enderror
                         </div>
 
+
                         <div class="form-group">
                             <label for="exampleInputPassword1">Jumlah Pakai<small class="text-danger" style="font-size: 18px">*</small></label>
-                            <input type="number" class="form-control" name="jumlah_pakai" placeholder="100" value="{{ old('jumlah_pakai') }}" autofocus>
+                            <input type="number" class="form-control" name="jumlah_pakai" min="0" placeholder="100" value="{{ old('jumlah_pakai') }}" autofocus>
                             @error('jumlah_pakai')
                                 <small class="text-danger ml-3" >{{$message}}</small>
                             @enderror

@@ -17,15 +17,14 @@ class BarangDatangController extends Controller
      */
     public function index()
     {
-        // $data=BarangDatang::all();
         $data=BarangDatang::join('jenis_benang','barang_datang.jenis_benang_id','=','jenis_benang.id')
         ->join('satuan_benang','barang_datang.satuan_id','=','satuan_benang.id')
-        ->join('warna_benang','barang_datang.warna_benang_id','=','warna_benang.id')
+        ->leftJoin('warna_benang','barang_datang.warna_benang_id','=','warna_benang.id')
         ->latest()
         ->get(['barang_datang.*','jenis_benang.jenis_benang','satuan_benang.satuan','satuan_benang.singkatan','warna_benang.warna_benang']);
 
         $kategoriBenang=JenisBenang::orderBy('jenis_benang','asc')->get();
-        $satuanBenang=SatuanBenang::orderBy('satuan','asc')->get();
+        $satuanBenang=SatuanBenang::orderBy('satuan','asc')->where('status','panjang')->get();
         $warnaBenang=WarnaBenang::orderBy('warna_benang','asc')->get();
         return view('backend.benang-datang',compact('data','kategoriBenang','satuanBenang','warnaBenang'));
 
@@ -80,7 +79,7 @@ class BarangDatangController extends Controller
     {
         $data=BarangDatang::findOrFail($id);
         $kategoriBenang=JenisBenang::orderBy('jenis_benang','asc')->get();
-        $satuanBenang=SatuanBenang::orderBy('satuan','asc')->get();
+        $satuanBenang=SatuanBenang::orderBy('satuan','asc')->where('status','panjang')->get();
         $warnaBenang=WarnaBenang::orderBy('warna_benang','asc')->get();
         return view('backend.edit-benang-datang',compact('data','kategoriBenang', 'satuanBenang', 'warnaBenang'));
     }

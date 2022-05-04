@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SatuanBenang extends Model
+class MotifSarung extends Model
 {
     use HasFactory;
-    protected $table='satuan_benang';
-    protected $fillable=['satuan','singkatan','status'];
+
+    protected $table="motif_sarung";
+    protected $guarded=['id'];
 }

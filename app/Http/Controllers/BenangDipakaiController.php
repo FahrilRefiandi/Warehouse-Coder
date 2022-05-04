@@ -66,7 +66,8 @@ class BenangDipakaiController extends Controller
                 'jenis_benang' => $benangDatang->jenisBenang->jenis_benang,
                 'warna_benang' => $benangDatang->warnaBenang->warna_benang,
                 'jumlah_pakai' => $request->jumlah_pakai,
-                'satuan' => $benangDatang->satuanBenang->singkatan
+                'satuan' => $benangDatang->satuanBenang->singkatan,
+                'barang_datang_id' => $request->pilih_benang,
             ]);
 
             BarangDatang::where('id',$request->pilih_benang)->update([
@@ -84,7 +85,11 @@ class BenangDipakaiController extends Controller
      */
     public function show($id)
     {
-        //
+        $data=BenangDipakai::findOrFail($id);
+        $sisa=BarangDatang::where('id',$data->barang_datang_id)->first();
+        
+
+        return view('backend.edit-benang-dipakai',compact('data','sisa'));
     }
 
     /**
@@ -107,7 +112,27 @@ class BenangDipakaiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $benangDipakai=BenangDipakai::findOrFail($id);
+        $benangDatang=BarangDatang::findOrFail($benangDipakai->barang_datang_id);
+
+        $request->validate([
+            'jumlah_pakai' => 'required|numeric',
+            'jumlah_pakai_sebelum' => 'required|numeric',
+        ]);
+
+        if(($benangDatang->jumlah_benang + $request->jumlah_pakai_sebelum) < $request->jumlah_pakai){
+            return redirect()->back()->with('kurang','Jumlah benang tidak mencukupi');
+        }else{
+            BenangDipakai::where('id',$id)->update([
+                'jumlah_pakai' => $request->jumlah_pakai,
+            ]);
+
+            BarangDatang::where('id',$benangDatang->id)->update([
+                'jumlah_benang' => ($benangDatang->jumlah_benang + $request->jumlah_pakai_sebelum) - $request->jumlah_pakai,
+            ]);
+
+            return redirect('/benang-dipakai')->with('tambah',"Benang $benangDipakai->jenis_benang Telah Diperbarui.");
+        }
     }
 
     /**

@@ -15,10 +15,11 @@ class CreateSarung extends Migration
     {
         Schema::create('sarung', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_sarung');
+            $table->string('kode_sarung')->unique();
             $table->string('warna_sarung');
             $table->string('motif_sarung');
             $table->integer('stok_sarung');
+            $table->string('satuan');
             $table->enum('status',['tersedia','terkirim']);
             $table->timestamps();
         });

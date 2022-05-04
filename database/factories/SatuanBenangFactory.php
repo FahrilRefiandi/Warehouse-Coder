@@ -16,6 +16,7 @@ class SatuanBenangFactory extends Factory
         return [
             'satuan' => 'METER',
             'singkatan' => 'M',
+            'status' => 'panjang',
         ];
     }
 }

@@ -15,9 +15,7 @@ class SarungController extends Controller
     public function index()
     {
         $data=Sarung::latest()->get();
-        $kode_sarung="SAR".rand(10,99).\Carbon\Carbon::now()->isoFormat('HmDMYY');
-        // dd($kode_sarung);
-        return view('backend.sarung',compact('data','kode_sarung'));
+        return view('backend.sarung',compact('data'));
     }
 
     /**
@@ -38,7 +36,23 @@ class SarungController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode_sarung'=>'required|unique:sarung',
+            'motif_sarung'=>'required',
+            'warna_sarung'=>'required',
+            'stok_sarung'=>'required|min:0',
+            'satuan'=>'required',
+        ]);
+
+        Sarung::create([
+            'kode_sarung'=>$request->kode_sarung,
+            'motif_sarung'=>$request->motif_sarung,
+            'warna_sarung'=>$request->warna_sarung,
+            'stok_sarung'=>$request->stok_sarung,
+            'satuan'=>$request->satuan,
+        ]);
+
+        return redirect()->back()->with('tambah',"Data $request->kode_sarung berhasil ditambahkan");
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('backend.components.main')
 
-@section('title', 'Warna Benang')
+@section('title', 'Motif Sarung')
 @section('content')
 
 
@@ -13,7 +13,7 @@
 
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Data Warna Benang</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Data Motif Sarung</h6>
             </div>
             <div class="card-body">
 
@@ -41,8 +41,7 @@
                         <thead style="background-color: #6D70C6" class="text-light">
                             <tr class="text-center" >
                                 <th style="width:5%">No</th>
-                                <th>Warna Benang</th>
-                                {{-- <th>Nama Barang</th> --}}
+                                <th>Motif Sarung</th>
                                 <th>Diupdate</th>
                                 <th>Dibuat</th>
                                 <th>Action</th>
@@ -52,15 +51,15 @@
                             @foreach ($data as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->warna_benang }}</td>
+                                    <td>{{ $item->motif_sarung }}</td>
                                     <td>{{ \Carbon\Carbon::parse($item->updated_at)->isoFormat('HH:m  D-MM-Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:m  D-MM-Y') }}</td>
                                     <td class="text-center" style="width:10%" >
-                                        <button  data-toggle="modal" data-target="#editModal" id="editWarnaBenang" data-id="{{$item->id }}" data-warna_benang="{{$item->warna_benang }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></button>
-                                        <form action="{{ url("/warna/$item->id") }}" method="post" class="d-inline" >
+                                        <button  data-toggle="modal" data-target="#editModal" id="editMotifSarung" data-id="{{$item->id }}" data-motif_sarung="{{$item->motif_sarung }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></button>
+                                        <form action="{{ url("/motif-sarung/$item->id") }}" method="post" class="d-inline" >
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" onclick="return confirm('Anda yakin data {{ $item->warna_benang }} akan dihapus.?')" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                                        <button type="submit" onclick="return confirm('Anda yakin data {{ $item->motif_sarung }} akan dihapus.?')" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
                                         </form>
                                     </td>
                                 </tr>
@@ -81,22 +80,22 @@
   <div class="modal-dialog modal-lg">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title">Edit Warna <text id="modalKet"></text> </h5>
+              <h5 class="modal-title">Edit Motif <text id="modalKet"></text> </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
           </div>
           <div class="modal-body">
 
-              <form  action="{{ route('warna.update' ,"update") }}" method="post">
+              <form  action="{{ route('motif-sarung.update' ,"update") }}" method="post">
                   @csrf
                   @method('put')
 
                   <input type="hidden" id="id" name="id" value="{{old('id')}}">
                   <div class="form-group">
-                      <label for="exampleInputEmail1">Warna Benang<small class="text-danger" style="font-size: 18px">*</small></label>
-                      <input type="text" class="form-control" name="edit_warna_benang" id="warna_benang" placeholder="Merah" value="{{old('edit_warna_benang')}}" autofocus>
-                      @error('edit_warna_benang')
+                      <label for="exampleInputEmail1">Motif Sarung<small class="text-danger" style="font-size: 18px">*</small></label>
+                      <input type="text" class="form-control" name="edit_motif_sarung" id="motif_sarung" placeholder="Bunga" value="{{old('edit_motif_sarung')}}" autofocus>
+                      @error('edit_motif_sarung')
                           <small class="text-danger ml-3" >{{$message}}</small>
                           @section('modalErrorValidation')
                           <script type="text/javascript">
@@ -125,7 +124,7 @@
       <div class="modal-dialog modal-lg">
           <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabel">Warna Benang</h5>
+                  <h5 class="modal-title" id="staticBackdropLabel">Motif Sarung</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                   </button>
@@ -144,12 +143,12 @@
                       @endif
                   {{-- cek error validation and show modal if error --}}
 
-                  <form action="{{ route('warna.store') }}" method="post">
+                  <form action="{{ route('motif-sarung.store') }}" method="post">
                       @csrf
                       <div class="form-group">
-                          <label for="exampleInputEmail1">Warna Benang<small class="text-danger" style="font-size: 18px">*</small></label>
-                          <input type="text" class="form-control" name="warna_benang" placeholder="Merah" value="{{ old('warna_benang') }}" autofocus>
-                          @error('warna_benang')
+                          <label for="exampleInputEmail1">Motif Sarung<small class="text-danger" style="font-size: 18px">*</small></label>
+                          <input type="text" class="form-control" name="motif_sarung" placeholder="Bunga" value="{{ old('motif_sarung') }}" autofocus>
+                          @error('motif_sarung')
                               <small class="text-danger ml-3" >{{$message}}</small>
                           @enderror
                       </div>
@@ -169,16 +168,16 @@
 @section('scriptCustom')
 
 <script>
-      $(document).on('click','#editWarnaBenang' , function(event){
+      $(document).on('click','#editMotifSarung' , function(event){
         var buttonEdit = $(event.relatedTarget)
         var id=$(this).data('id')
-        var warnaBenang=$(this).data('warna_benang')
+        var motifSarung=$(this).data('motif_sarung')
         var modal=$(this)
 
 
-        document.getElementById('modalKet').innerHTML=warnaBenang;
+        document.getElementById('modalKet').innerHTML=motifSarung;
         document.getElementById('id').value=id;
-        document.getElementById('warna_benang').value=warnaBenang;
+        document.getElementById('motif_sarung').value=motifSarung;
         // document.getElementById('modalKet').value=jabatan;
 
     })

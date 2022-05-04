@@ -17,6 +17,7 @@ class CreateSatuanBenang extends Migration
             $table->id();
             $table->string('satuan')->unique();
             $table->string('singkatan');
+            $table->enum('status',['panjang','jumlah'])->default('panjang');
             $table->timestamps();
         });
     }

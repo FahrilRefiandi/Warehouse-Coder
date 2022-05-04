@@ -3,6 +3,9 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Models\MotifSarung;
+use App\Models\SatuanBenang;
+use App\Models\WarnaBenang;
 
 class SarungInput extends Component
 {
@@ -10,7 +13,10 @@ class SarungInput extends Component
 
     public function render()
     {
-        return view('livewire.sarung-input');
+        $motifSarung=MotifSarung::latest()->get();
+        $warnaSarung=WarnaBenang::latest()->get();
+        $satuan=SatuanBenang::where('status','jumlah')->latest()->get();
+        return view('livewire.sarung-input',compact('motifSarung','warnaSarung','satuan'));
     }
 
     public function generateCode(){

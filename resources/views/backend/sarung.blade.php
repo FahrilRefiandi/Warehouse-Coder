@@ -53,6 +53,7 @@
                                 <th>Motif Sarung</th>
                                 <th>Stok Sarung</th>
                                 <th>Status</th>
+                                <th>TGL</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -60,30 +61,44 @@
                             <tr class="text-center" >
                                 <th>No</th>
                                 <th>Kode Sarung</th>
-                                {{-- <th>Nama Benang</th> --}}
                                 <th>Warna Sarung</th>
                                 <th>Motif Sarung</th>
                                 <th>Stok Sarung</th>
                                 <th>Status</th>
+                                <th>TGL</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
                         <tbody>
+                            @php
+                                $bg=['btn-success','btn-primary'];
+                            @endphp
                             @foreach ($data as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->kode_sarung }}</td>
                                     <td>{{ $item->warna_sarung  }}</td>
                                     <td>{{ $item->motif_sarung}}</td>
-                                    <td>{{ $item->status}}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:mm  D-MM-Y') }}</td>
+                                    <td>{{ $item->stok_sarung .' '. $item->satuan}}</td>
+                                    @if ($item->status == 'tersedia')
+                                        <td class="text-center" >
+                                            <button type="button" class="btn {{ $bg[1] }} btn-sm rounded-pill" data-toggle="tooltip" data-placement="top" title="Barang Tersedia Di Warehouse 1 (Belum Dikirim Ke Warehouse 2).">{{ ucfirst($item->status) }}</button>
+                                        </td>
+                                    @else
+                                        <td class="text-center" >
+                                            <button type="button" class="btn {{ $bg[0] }} btn-sm rounded-pill" data-toggle="tooltip" data-placement="top" title="Barang Telah Dikirim Ke Warehouse 2.">{{ ucfirst($item->status) }}</button>
+                                        </td>
+                                    @endif
+
+                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:mm  DD-MM-Y') }}</td>
+
                                     <td class="text-center" style="width:10%" >
-                                        <a href="{{ url("/sarung/$item->id") }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
+                                        {{-- <a href="{{ url("/sarung/$item->id") }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
                                         <form action="{{ url("/sarung/$item->id") }}" method="post" class="d-inline" >
                                         @csrf
                                         @method('delete')
                                         <button type="submit" onclick="return confirm('Anda yakin data {{ $item->kode_sarung .' '. $item->jumlah_benang .' '. $item->singkatan }} akan dihapus.?')" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-                                        </form>
+                                        </form> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -104,7 +119,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Benang Datang</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Sarung Jadi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -127,4 +142,9 @@
     <script src="{{ asset('asset/sb-admin') }}/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="{{ asset('asset/sb-admin') }}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="{{ asset('asset/sb-admin') }}/js/demo/datatables-demo.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+        });
+    </script>
 @endsection
