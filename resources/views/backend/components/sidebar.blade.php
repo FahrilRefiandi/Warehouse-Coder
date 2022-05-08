@@ -39,6 +39,13 @@
             <span>Sarung</span></a>
     </li>
 
+
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ url('/pindahkan-sarung/2') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Kirim Ke WH 2</span></a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
