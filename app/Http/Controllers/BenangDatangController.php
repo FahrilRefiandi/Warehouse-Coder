@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BarangDatang;
+use App\Models\BenangDatang;
 use App\Models\JenisBenang;
 use App\Models\SatuanBenang;
 use App\Models\WarnaBenang;
 use Illuminate\Http\Request;
 
-class BarangDatangController extends Controller
+class BenangDatangController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,12 +17,12 @@ class BarangDatangController extends Controller
      */
     public function index()
     {
-        $data=BarangDatang::join('jenis_benang','barang_datang.jenis_benang_id','=','jenis_benang.id')
-        ->join('satuan_benang','barang_datang.satuan_id','=','satuan_benang.id')
-        ->leftJoin('warna_benang','barang_datang.warna_benang_id','=','warna_benang.id')
-        ->latest()
-        ->get(['barang_datang.*','jenis_benang.jenis_benang','satuan_benang.satuan','satuan_benang.singkatan','warna_benang.warna_benang']);
-
+        // $data=BenangDatang::join('jenis_benang','benang_datang.jenis_benang_id','=','jenis_benang.id')
+        // ->join('satuan_benang','benang_datang.satuan_id','=','satuan_benang.id')
+        // ->leftJoin('warna_benang','benang_datang.warna_benang_id','=','warna_benang.id')
+        // ->latest()
+        // ->get(['benang_datang.*','jenis_benang.jenis_benang','satuan_benang.satuan','satuan_benang.singkatan','warna_benang.warna_benang']);
+        $data=BenangDatang::latest()->get();
         $kategoriBenang=JenisBenang::orderBy('jenis_benang','asc')->get();
         $satuanBenang=SatuanBenang::orderBy('satuan','asc')->where('status','panjang')->get();
         $warnaBenang=WarnaBenang::orderBy('warna_benang','asc')->get();
@@ -33,15 +33,7 @@ class BarangDatangController extends Controller
         // $data->jenisBenang->jenis_benang);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -54,16 +46,20 @@ class BarangDatangController extends Controller
         // dd($request);
         $request->validate([
             'jenis_benang' => 'required',
-            'jumlah_benang' => 'required|numeric',
-            'satuan_benang' => 'required',
+            'jumlah_benang' => 'required',
             'warna_benang' => 'required',
         ]);
 
-        BarangDatang::create([
-            'jenis_benang_id' => $request->jenis_benang,
+        if($request->created_at==null){
+            $request->created_at=now();
+        }
+
+        BenangDatang::create([
+            'jenis_benang' => $request->jenis_benang,
             'jumlah_benang' => $request->jumlah_benang,
-            'satuan_id' => $request->satuan_benang,
-            'warna_benang_id' => $request->warna_benang,
+            'satuan' => "KG",
+            'warna_benang' => $request->warna_benang,
+            'tgl_benang_datang' => $request->created_at,
         ]);
 
         return redirect()->back()->with('tambah',"Data berhasil ditambahkan");
@@ -77,23 +73,14 @@ class BarangDatangController extends Controller
      */
     public function show($id)
     {
-        $data=BarangDatang::findOrFail($id);
+        $data=BenangDatang::findOrFail($id);
         $kategoriBenang=JenisBenang::orderBy('jenis_benang','asc')->get();
         $satuanBenang=SatuanBenang::orderBy('satuan','asc')->where('status','panjang')->get();
         $warnaBenang=WarnaBenang::orderBy('warna_benang','asc')->get();
         return view('backend.edit-benang-datang',compact('data','kategoriBenang', 'satuanBenang', 'warnaBenang'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
 
-    }
 
     /**
      * Update the specified resource in storage.
@@ -104,18 +91,20 @@ class BarangDatangController extends Controller
      */
     public function update(Request $request, $id)
     {
+       
         $request->validate([
-            'jenis_benang' => 'required|numeric',
-            'jumlah_benang' => 'required|numeric',
-            'satuan_benang' => 'required|numeric',
-            'warna_benang' => 'required|numeric',
+
+            'jumlah_benang' => 'required',
+            'warna_benang' => 'required',
+            // 'created_at' => 'date',
         ]);
 
-        BarangDatang::where('id',$id)->update([
-            'jenis_benang_id' => $request->jenis_benang,
+        BenangDatang::where('id',$id)->update([
+            // 'jenis_benang' => $request->jenis_benang,
             'jumlah_benang' => $request->jumlah_benang,
-            'satuan_id' => $request->satuan_benang,
-            'warna_benang_id' => $request->warna_benang,
+            // 'satuan_id' => $request->satuan_benang,
+            'warna_benang' => $request->warna_benang,
+            'tgl_benang_datang' => $request->created_at,
         ]);
 
         return redirect('/benang-datang')->with('tambah',"Data berhasil diubah");
@@ -130,7 +119,7 @@ class BarangDatangController extends Controller
      */
     public function destroy($id)
     {
-        BarangDatang::find($id)->delete();
+        BenangDatang::find($id)->delete();
         return redirect()->back()->with('hapus',"Data berhasil dihapus");
 
     }

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BarangDatangController;
+use App\Http\Controllers\BenangDatangController;
 use App\Http\Controllers\JenisBenangController;
 use App\Http\Controllers\WarnaBenangController;
 use App\Http\Controllers\SatuanBenangController;
@@ -31,7 +31,7 @@ Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('/benang-datang', BarangDatangController::class)->middleware(['wh1']);
+Route::resource('/benang-datang', BenangDatangController::class)->middleware(['wh1']);
 
 // Management Data WH1
 Route::resource('/jenis-benang', JenisBenangController::class)->middleware(['wh1']);

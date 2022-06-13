@@ -5,13 +5,6 @@
 
     <div class="container-fluid">
 
-        <!-- Page Heading -->
-        {{-- <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-        For more information about DataTables, please visit the <a target="_blank"
-            href="https://datatables.net">official DataTables documentation</a>.</p> --}}
-
-
         <nav class="navbar mb-1" style="margin-top: -20px">
             <a class="navbar-brand"></a>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Benang
@@ -27,26 +20,26 @@
             <div class="card-body">
 
                 @if (session('tambah'))
-                <div class="alert alert-primary mb-4 alert-dismissible fade show" role="alert">
-                    <strong>Sukses.</strong> {{session('tambah')}}.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
+                    <div class="alert alert-primary mb-4 alert-dismissible fade show" role="alert">
+                        <strong>Sukses.</strong> {{ session('tambah') }}.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 @endif
                 @if (session('hapus'))
-                <div class="alert alert-warning mb-4 alert-dismissible fade show" role="alert">
-                    <strong>Sukses.</strong> {{session('hapus')}}.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
+                    <div class="alert alert-warning mb-4 alert-dismissible fade show" role="alert">
+                        <strong>Sukses.</strong> {{ session('hapus') }}.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 @endif
 
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead style="background-color: #6D70C6" class="text-light">
-                            <tr class="text-center" >
+                            <tr class="text-center">
                                 <th style="width:5%">No</th>
                                 <th>Kategori Benang</th>
                                 {{-- <th>Nama Barang</th> --}}
@@ -57,7 +50,7 @@
                             </tr>
                         </thead>
                         <tfoot style="background-color: #6D70C6" class="text-light">
-                            <tr class="text-center" >
+                            <tr class="text-center">
                                 <th>No</th>
                                 <th>Kategori Benang</th>
                                 {{-- <th>Nama Benang</th> --}}
@@ -72,15 +65,20 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->jenis_benang }}</td>
-                                    <td>{{ $item->jumlah_benang .' '. $item->singkatan }}</td>
+                                    <td>{{ $item->jumlah_benang . ' ' . $item->satuan }}</td>
                                     <td>{{ $item->warna_benang }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:m  D-MM-Y') }}</td>
-                                    <td class="text-center" style="width:10%" >
-                                        <a href="{{ url("/benang-datang/$item->id") }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
-                                        <form action="{{ url("/benang-datang/$item->id") }}" method="post" class="d-inline" >
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" onclick="return confirm('Anda yakin data {{ $item->jenis_benang .' '. $item->jumlah_benang .' '. $item->singkatan }} akan dihapus.?')" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                                    <td>{{ \Carbon\Carbon::parse($item->tgl_benang_datang)->isoFormat('HH:mm DD-MM-Y') }}
+                                    </td>
+                                    <td class="text-center" style="width:10%">
+                                        <a href="{{ url("/benang-datang/$item->id") }}" class="btn btn-outline-primary"><i
+                                                class="fas fa-pencil-alt"></i></a>
+                                        <form action="{{ url("/benang-datang/$item->id") }}" method="post"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit"
+                                                onclick="return confirm('Anda yakin data {{ $item->jenis_benang . ' ' . $item->jumlah_benang . ' ' . $item->singkatan }} akan dihapus.?')"
+                                                class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
                                         </form>
                                     </td>
                                 </tr>
@@ -111,78 +109,88 @@
 
                     {{-- cek error validation and show modal if error --}}
                     @if ($errors->any())
-                    @section('modalErrorValidation')
-                    <script type="text/javascript">
-                            $(window).on('load', function() {
-                                $('#staticBackdrop').modal('show');
-                            });
+                        @section('modalErrorValidation')
+                            <script type="text/javascript">
+                                $(window).on('load', function() {
+                                    $('#staticBackdrop').modal('show');
+                                });
                             </script>
                         @endsection
-                        @endif
+                    @endif
                     {{-- cek error validation and show modal if error --}}
 
                     <form action="{{ route('benang-datang.store') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Kategori Benang<small class="text-danger" style="font-size: 18px">*</small></label>
+                            <label for="exampleInputEmail1">Kategori Benang<small class="text-danger"
+                                    style="font-size: 18px">*</small></label>
                             <select class="custom-select" name="jenis_benang" autofocus>
                                 <option value="">---Pilih Kategori---</option>
                                 @foreach ($kategoriBenang as $item)
                                     @if (old('jenis_benang') == $item->id)
-                                        <option value="{{ $item->id }}" selected>{{ $item->jenis_benang }}</option>
+                                        <option value="{{ $item->jenis_benang }}" selected>{{ $item->jenis_benang }}
+                                        </option>
                                     @endif
-                                    <option value="{{ $item->id }}">{{ $item->jenis_benang }}</option>
+                                    <option value="{{ $item->jenis_benang }}">{{ $item->jenis_benang }}</option>
                                 @endforeach
                             </select>
                             @error('jenis_benang')
-                                <small class="text-danger ml-3" >{{$message}}</small>
+                                <small class="text-danger ml-3">{{ $message }}</small>
                             @enderror
                         </div>
 
                         <div class="row">
                             <div class="col">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Jumlah Benang<small class="text-danger" style="font-size: 18px">*</small></label>
-                                    <input type="number" class="form-control" name="jumlah_benang" placeholder="100" value="{{ old('jumlah_benang') }}" autofocus>
-                                    @error('jumlah_benang')
-                                        <small class="text-danger ml-3" >{{$message}}</small>
-                                    @enderror
+
+                                <label for="exampleInputPassword1">Jumlah Benang<small class="text-danger"
+                                        style="font-size: 18px">*</small></label>
+                                <div class="input-group">
+                                    <input type="" class="form-control" name="jumlah_benang" step="any" placeholder="100"
+                                        value="{{ old('jumlah_benang') }}" autofocus>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">KG</span>
+                                    </div>
                                 </div>
+                                @error('jumlah_benang')
+                                    <small class="text-danger ml-3">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col">
+
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Satuan Benang<small class="text-danger" style="font-size: 18px">*</small></label>
-                                    <select class="custom-select" name="satuan_benang" autofocus>
-                                        <option value="" >---Pilih Satuan---</option>
-                                        @foreach ($satuanBenang as $item)
-                                            @if (old('satuan_benang') == $item->id)
-                                                <option value="{{ $item->id }}" selected>{{ $item->satuan }}</option>
+                                    <label for="exampleInputPassword1">Warna Benang<small class="text-danger"
+                                            style="font-size: 18px">*</small></label>
+                                    <select class="custom-select" name="warna_benang" autofocus>
+                                        <option value="">---Pilih Warna Benang---</option>
+                                        @foreach ($warnaBenang as $item)
+                                            @if (old('warna_benang') == $item->id)
+                                                <option value="{{ $item->warna_benang }}" selected>
+                                                    {{ $item->warna_benang }}</option>
                                             @endif
-                                            <option value="{{ $item->id }}">{{ $item->satuan }}</option>
+                                            <option value="{{ $item->warna_benang }}">{{ $item->warna_benang }}
+                                            </option>
                                         @endforeach
                                     </select>
-                                    @error('satuan_benang')
-                                        <small class="text-danger ml-3" >{{$message}}</small>
+                                    @error('warna_benang')
+                                        <small class="text-danger ml-3">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="exampleInputPassword1">Warna Benang<small class="text-danger" style="font-size: 18px">*</small></label>
-                            <select class="custom-select" name="warna_benang" autofocus>
-                                <option value="" >---Pilih Warna Benang---</option>
-                                @foreach ($warnaBenang as $item)
-                                    @if (old('warna_benang') == $item->id)
-                                        <option value="{{ $item->id }}" selected>{{ $item->warna_benang }}</option>
-                                    @endif
-                                    <option value="{{ $item->id }}">{{ $item->warna_benang }}</option>
-                                @endforeach
-                            </select>
-                            @error('warna_benang')
-                                <small class="text-danger ml-3" >{{$message}}</small>
-                            @enderror
                         </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Dibuat pada</label>
+                            <input type="datetime-local" class="form-control" name="created_at"
+                                value="{{ old('created_at') }}">
+                            @if ($errors->has('created_at'))
+                                <small class="text-danger ml-3">{{ $message }}</small>
+                            @else
+                                <small class="text-muted ml-3">Kosongi untuk waktu sekarang.</small>
+                            @endif
+                        </div>
+
+
+
 
                 </div>
                 <div class="modal-footer">

@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\JenisBenang::factory(1)->create();
         \App\Models\SatuanBenang::factory(1)->create();
         \App\Models\WarnaBenang::factory(1)->create();
-        \App\Models\BarangDatang::factory(1)->create();
+        \App\Models\BenangDatang::factory(1)->create();
     }
 }
