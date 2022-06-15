@@ -22,7 +22,7 @@
                 @endif
 
 
-                <form action="{{ url("/benang-dipakai/$data->id") }}" method="post">
+                <form action="{{ url("/produksi-lembaran/$data->id") }}" method="post">
                     @method('PUT')
                     @csrf
                     <input type="hidden" name="jumlah_pakai_sebelum" value="{{ $data->jumlah_pakai }}">
@@ -44,7 +44,7 @@
 
                     <div class="text-center mt-5">
                         <hr>
-                        <a href="{{ url('/benang-dipakai') }}" class="btn btn-danger mr-2"> Kembali</a>
+                        <a href="{{ url('/produksi-lembaran') }}" class="btn btn-danger mr-2"> Kembali</a>
                         <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
                     </form>

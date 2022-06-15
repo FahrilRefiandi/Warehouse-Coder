@@ -27,9 +27,9 @@
 
     <!-- Nav Item - Data -->
     <li class="nav-item active">
-        <a class="nav-link" href="{{ url('/benang-dipakai') }}">
+        <a class="nav-link" href="{{ url('/produksi-lembaran') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Benang Dipakai</span></a>
+            <span>Produksi Lembaran</span></a>
     </li>
 
     <!-- Nav Item - Data -->
@@ -102,6 +102,7 @@
                 <a class="collapse-item" href="{{url('/jenis-benang')}}">Jenis Benang</a>
                 <a class="collapse-item" href="{{url('/warna')}}">Warna</a>
                 <a class="collapse-item" href="{{url('/satuan')}}">Satuan</a>
+                <a class="collapse-item" href="{{url('/mesin')}}">Mesin</a>
                 <h6 class="collapse-header">Data Sarung:</h6>
                 <a class="collapse-item" href="{{url('/motif-sarung')}}">Motif Sarung</a>
 

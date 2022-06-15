@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBenangDipakai extends Migration
+class CreateMesin extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateBenangDipakai extends Migration
      */
     public function up()
     {
-        Schema::create('benang_dipakai', function (Blueprint $table) {
+        Schema::create('mesin', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_benang');
-            $table->string('warna_benang');
-            $table->integer('jumlah_pakai');
-            $table->string('satuan');
-            $table->foreignId('barang_datang_id');
+            $table->string('kode_mesin')->unique();
+            $table->integer('nomor_mesin')->unique();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateBenangDipakai extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('benang_dipakai');
+        Schema::dropIfExists('mesin');
     }
 }

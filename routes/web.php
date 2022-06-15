@@ -5,10 +5,11 @@ use App\Http\Controllers\BenangDatangController;
 use App\Http\Controllers\JenisBenangController;
 use App\Http\Controllers\WarnaBenangController;
 use App\Http\Controllers\SatuanBenangController;
-use App\Http\Controllers\BenangDipakaiController;
+use App\Http\Controllers\ProduksiLembaranController;
 use App\Http\Controllers\MotifSarungController;
 use App\Http\Controllers\PindahkanSarungController;
 use App\Http\Controllers\SarungController;
+use App\Http\Controllers\MesinController;
 
 
 
@@ -41,7 +42,8 @@ Route::resource('/motif-sarung', MotifSarungController::class)->middleware(['wh1
 // Management Data WH1
 
 
-Route::resource('/benang-dipakai', BenangDipakaiController::class)->middleware(['wh1']);
+Route::resource('/produksi-lembaran', ProduksiLembaranController::class)->middleware(['wh1']);
+Route::resource('/mesin', MesinController::class)->middleware(['wh1']);
 
 Route::resource('/sarung', SarungController::class)->middleware(['wh1']);
 

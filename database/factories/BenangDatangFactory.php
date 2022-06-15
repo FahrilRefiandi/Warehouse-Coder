@@ -15,7 +15,7 @@ class BenangDatangFactory extends Factory
     {
         return [
             'jenis_benang' => "RAYON",
-            'warna_benang' => "HITAM",
+            'warna_benang' => "Hitam",
             'jumlah_benang' => 100,
             'satuan' => "KG",
             'tgl_benang_datang' => now(),

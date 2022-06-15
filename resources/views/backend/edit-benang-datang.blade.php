@@ -47,8 +47,7 @@
                                 <select class="custom-select" name="warna_benang" autofocus>
                                     <option value="">---Pilih Warna Benang---</option>
                                     @foreach ($warnaBenang as $item)
-                                        <option @if ($data->warna_benang == $item->warna_benang) selected @endif
-                                            value="{{ $item->warna_benang }}">{{ $item->warna_benang }}</option>
+                                        <option @if ($data->warna_benang == $item->warna_benang) selected @endif value="{{ $item->warna_benang }}">{{ $item->warna_benang }}</option>
                                     @endforeach
                                 </select>
                                 @error('warna_benang')

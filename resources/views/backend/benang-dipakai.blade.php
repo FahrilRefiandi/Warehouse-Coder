@@ -14,14 +14,14 @@
 
         <nav class="navbar mb-1" style="margin-top: -20px">
             <a class="navbar-brand"></a>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Benang Dipakai</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Produksi Lembaran</button>
         </nav>
 
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Data Benang Dipakai</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Data Produksi Lembaran</h6>
             </div>
             <div class="card-body">
 
@@ -77,7 +77,7 @@
                                     <td>{{ $item->jumlah_pakai .' '. $item->satuan }}</td>
                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:mm  DD-MM-Y') }}</td>
                                     <td class="text-center" style="width:10%" >
-                                        <a href="{{ url("/benang-dipakai/$item->id") }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="{{ url("/produksi-lembaran/$item->id") }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
                                         {{-- <form action="{{ url("/benang-dipakai/$item->id") }}" method="post" class="d-inline" >
                                         @csrf
                                         @method('delete')
@@ -103,7 +103,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Benang Dipakai</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Produksi Lembaran</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -138,7 +138,7 @@
                         @endif
                     {{-- cek error validation and show modal if error --}}
 
-                    <form action="{{ route('benang-dipakai.store') }}" method="post">
+                    <form action="{{ route('produksi-lembaran.store') }}" method="post">
                         @csrf
 
                         <div class="form-group">
@@ -160,7 +160,7 @@
 
                         <div class="form-group">
                             <label for="exampleInputPassword1">Jumlah Pakai<small class="text-danger" style="font-size: 18px">*</small></label>
-                            <input type="number" class="form-control" name="jumlah_pakai" min="0" placeholder="100" value="{{ old('jumlah_pakai') }}" autofocus>
+                            <input type="number" step="any" class="form-control" name="jumlah_pakai" min="0" placeholder="100" value="{{ old('jumlah_pakai') }}" autofocus>
                             @error('jumlah_pakai')
                                 <small class="text-danger ml-3" >{{$message}}</small>
                             @enderror
