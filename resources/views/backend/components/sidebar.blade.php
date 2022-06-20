@@ -103,6 +103,7 @@
                 <a class="collapse-item" href="{{url('/warna')}}">Warna</a>
                 <a class="collapse-item" href="{{url('/satuan')}}">Satuan</a>
                 <a class="collapse-item" href="{{url('/mesin')}}">Mesin</a>
+                <a class="collapse-item" href="{{url('/shift-kerja')}}">Shift Kerja</a>
                 <h6 class="collapse-header">Data Sarung:</h6>
                 <a class="collapse-item" href="{{url('/motif-sarung')}}">Motif Sarung</a>
 

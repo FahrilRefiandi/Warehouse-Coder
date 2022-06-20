@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="input-group">
-                        <input type="number" class="form-control" name="jumlah_pakai" min="0" placeholder="100" value="{{ $data->jumlah_pakai }}" autofocus>
+                        <input type="number" step="any" class="form-control" name="jumlah_pakai" min="0" placeholder="100" value="{{ $data->jumlah_pakai }}" autofocus>
                         <div class="input-group-append">
                           <button type="button" class="btn btn-info" disabled id="button-addon2">{{ $data->satuan }}</button>
                         </div>

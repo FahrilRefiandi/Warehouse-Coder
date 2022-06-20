@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProduksiLembaran extends Migration
+class CreateShiftKerja extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateProduksiLembaran extends Migration
      */
     public function up()
     {
-        Schema::create('produksi_lembaran', function (Blueprint $table) {
+        Schema::create('shift_kerja', function (Blueprint $table) {
             $table->id();
-            $table->string('benang_datang_id');
-            $table->integer('shift_kerja_id');
-            $table->string('jumlah_pakai');
-            $table->string('satuan');
-            $table->integer('mesin_id');
-            $table->string('motif');
+            $table->string('shift');
+            $table->time('mulai_kerja');
+            $table->time('akhir_kerja');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateProduksiLembaran extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('produksi_lembaran');
+        Schema::dropIfExists('shift_kerja');
     }
 }

@@ -10,8 +10,7 @@ use App\Http\Controllers\MotifSarungController;
 use App\Http\Controllers\PindahkanSarungController;
 use App\Http\Controllers\SarungController;
 use App\Http\Controllers\MesinController;
-
-
+use App\Http\Controllers\ShiftKerjaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +43,7 @@ Route::resource('/motif-sarung', MotifSarungController::class)->middleware(['wh1
 
 Route::resource('/produksi-lembaran', ProduksiLembaranController::class)->middleware(['wh1']);
 Route::resource('/mesin', MesinController::class)->middleware(['wh1']);
+Route::resource('/shift-kerja', ShiftKerjaController::class)->middleware(['wh1']);
 
 Route::resource('/sarung', SarungController::class)->middleware(['wh1']);
 

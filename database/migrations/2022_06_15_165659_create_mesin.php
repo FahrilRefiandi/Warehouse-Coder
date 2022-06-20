@@ -16,7 +16,7 @@ class CreateMesin extends Migration
         Schema::create('mesin', function (Blueprint $table) {
             $table->id();
             $table->string('kode_mesin')->unique();
-            $table->integer('nomor_mesin')->unique();
+            $table->string('nomor_mesin')->unique();
             $table->timestamps();
         });
     }
