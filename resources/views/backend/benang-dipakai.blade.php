@@ -72,15 +72,33 @@
                             @foreach ($data as $item)
                                 @php
                                     $item->jumlah_pakai = explode(',', $item->jumlah_pakai);
-                                    $item->benang_datang_id = explode(',', $item->benang_datang_id);
+                                    $idBenang = explode(',', $item->benang_datang_id);
                                 @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td></td>
-                                    <td>{{ $item->warna_benang }}</td>
+
+                                    <td>
+                                        @php
+                                        for ($i=0; $i < count($idBenang); $i++) {
+                                            // echo $idBenang[$i].'<br>';
+                                            $benang[$i]=App\Models\BenangDatang::where('id',$idBenang[$i])->first();
+                                            echo($benang[$i]->jenis_benang.',');
+                                        }
+                                        @endphp
+
+                                    </td>
+                                    <td>
+                                        @php
+                                        for ($i=0; $i < count($idBenang); $i++) {
+                                            // echo $idBenang[$i].'<br>';
+                                            $warnaBenang[$i]=App\Models\BenangDatang::where('id',$idBenang[$i])->first();
+                                            echo($warnaBenang[$i]->warna_benang.',');
+                                        }
+                                        @endphp
+                                    </td>
                                     <td>
                                         @foreach ($item->jumlah_pakai as $jumlahPakai)
-                                            {{ $jumlahPakai . ' ' . $item->satuan }}
+                                            {{ $jumlahPakai . ' ' . $item->satuan .','}}
                                         @endforeach
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:mm  DD-MM-Y') }}</td>

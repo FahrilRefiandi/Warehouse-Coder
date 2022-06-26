@@ -17,20 +17,10 @@ class BenangDatangController extends Controller
      */
     public function index()
     {
-        // $data=BenangDatang::join('jenis_benang','benang_datang.jenis_benang_id','=','jenis_benang.id')
-        // ->join('satuan_benang','benang_datang.satuan_id','=','satuan_benang.id')
-        // ->leftJoin('warna_benang','benang_datang.warna_benang_id','=','warna_benang.id')
-        // ->latest()
-        // ->get(['benang_datang.*','jenis_benang.jenis_benang','satuan_benang.satuan','satuan_benang.singkatan','warna_benang.warna_benang']);
-        $data=BenangDatang::latest()->get();
-        $kategoriBenang=JenisBenang::orderBy('jenis_benang','asc')->get();
-        $satuanBenang=SatuanBenang::orderBy('satuan','asc')->where('status','panjang')->get();
-        $warnaBenang=WarnaBenang::orderBy('warna_benang','asc')->get();
-        return view('backend.benang-datang',compact('data','kategoriBenang','satuanBenang','warnaBenang'));
-
-        // dd($data->satuanBenang->singkatan,
-        // $data->warnaBenang->warna_benang,
-        // $data->jenisBenang->jenis_benang);
+        $data=BenangDatang::where('jumlah_benang','!=',0)->latest()->get();
+        $rayon=BenangDatang::where('jenis_benang','RAYON')->sum('jumlah_benang');
+        $tr=BenangDatang::where('jenis_benang','TR')->sum('jumlah_benang');
+        return view('backend.benang-datang',compact('data','rayon','tr'));
     }
 
 
@@ -43,24 +33,43 @@ class BenangDatangController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $request->validate([
-            'jenis_benang' => 'required',
-            'jumlah_benang' => 'required',
-            'warna_benang' => 'required',
+            'jumlah_benang_rayon.*' => 'required',
+            'warna_benang_rayon.*' => 'required',
+            'jumlah_benang_tr.*' => 'required',
+            'warna_benang_tr.*' => 'required',
         ]);
+        // dd($request->warna_benang_rayon);
 
         if($request->created_at==null){
             $request->created_at=now();
         }
 
-        BenangDatang::create([
-            'jenis_benang' => $request->jenis_benang,
-            'jumlah_benang' => $request->jumlah_benang,
-            'satuan' => "KG",
-            'warna_benang' => $request->warna_benang,
-            'tgl_benang_datang' => $request->created_at,
-        ]);
+        // cek rayon
+        if($request->warna_benang_rayon!=null){
+            for($i=0;$i<count($request->warna_benang_rayon);$i++){
+                BenangDatang::create([
+                    'jenis_benang' => 'RAYON',
+                    'jumlah_benang' => $request->jumlah_benang_rayon[$i],
+                    'satuan' => "KG",
+                    'warna_benang' => $request->warna_benang_rayon[$i],
+                    'tgl_benang_datang' => $request->created_at,
+                ]);
+            }
+        }
+
+        // cek TR
+        if($request->warna_benang_tr!=null){
+            for($i=0;$i<count($request->warna_benang_tr);$i++){
+                BenangDatang::create([
+                    'jenis_benang' => 'TR',
+                    'jumlah_benang' => $request->jumlah_benang_tr[$i],
+                    'satuan' => "KG",
+                    'warna_benang' => $request->warna_benang_tr[$i],
+                    'tgl_benang_datang' => $request->created_at,
+                ]);
+            }
+        }
 
         return redirect()->back()->with('tambah',"Data berhasil ditambahkan");
     }
@@ -91,7 +100,7 @@ class BenangDatangController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+
         $request->validate([
 
             'jumlah_benang' => 'required',

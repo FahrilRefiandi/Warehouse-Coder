@@ -33,8 +33,8 @@
             <b>Simpan</b></button>
     </form>
     <div>
-        <p class="mb-0 mt-3">Belum punya akun.? <a href="{{ url('/register') }}"
+        {{-- <p class="mb-0 mt-3">Belum punya akun.? <a href="{{ url('/register') }}"
                 class="text-white-50 fw-bold">Daftar</a>
-        </p>
+        </p> --}}
     </div>
 </div>

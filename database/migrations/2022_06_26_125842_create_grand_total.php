@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBenangDatang extends Migration
+class CreateGrandTotal extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class CreateBenangDatang extends Migration
      */
     public function up()
     {
-        Schema::create('benang_datang', function (Blueprint $table) {
+        Schema::create('grand_total', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_benang');
-            $table->string('warna_benang');
-            $table->float('jumlah_benang');
-            $table->string('satuan');
-            $table->date('tanggal');
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ class CreateBenangDatang extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('benang_datang');
+        Schema::dropIfExists('grand_total');
     }
 }
