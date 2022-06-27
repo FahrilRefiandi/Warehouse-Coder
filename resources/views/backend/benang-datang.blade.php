@@ -78,7 +78,7 @@
                                     <td>{{ $item->jenis_benang }}</td>
                                     <td>{{ $item->jumlah_benang . ' ' . $item->satuan }}</td>
                                     <td>{{ $item->warna_benang }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->tgl_benang_datang)->isoFormat('DD/MM/YYYY') }}
+                                    <td>{{ \Carbon\Carbon::parse($item->tanggal)->isoFormat('DD/MM/YYYY') }}
                                     </td>
                                     <td class="text-center" style="width:10%">
                                         <a href="{{ url("/benang-datang/$item->id") }}" class="btn btn-outline-primary"><i
