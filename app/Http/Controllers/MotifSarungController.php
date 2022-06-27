@@ -27,12 +27,11 @@ class MotifSarungController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'kode_motif'=>'required|unique:motif_sarung',
             'motif_sarung'=>'required|unique:motif_sarung',
         ]);
 
-        MotifSarung::create([
-            'motif_sarung'=>$request->motif_sarung,
-        ]);
+        MotifSarung::create($request->all());
 
         return redirect()->back()->with('tambah',"Data $request->motif_sarung berhasil ditambahkan");
 
@@ -48,10 +47,12 @@ class MotifSarungController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'edit_kode_motif'=> ['required','string','unique:motif_sarung,kode_motif,'.$request->id],
             'edit_motif_sarung'=> ['required','string','unique:motif_sarung,motif_sarung,'.$request->id],
         ]);
 
         MotifSarung::where('id',$request->id)->update([
+            'kode_motif'=>$request->edit_kode_motif,
             'motif_sarung'=>$request->edit_motif_sarung,
         ]);
 

@@ -15,6 +15,7 @@ class CreateMotifSarung extends Migration
     {
         Schema::create('motif_sarung', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_motif')->unique();
             $table->string('motif_sarung')->unique();
             $table->timestamps();
         });

@@ -32,6 +32,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('/benang-datang', BenangDatangController::class)->middleware(['wh1']);
+Route::post('/sort/benang-datang',[BenangDatangController::class,'sortDate'])->middleware(['wh1']);
 
 // Management Data WH1
 Route::resource('/jenis-benang', JenisBenangController::class)->middleware(['wh1']);

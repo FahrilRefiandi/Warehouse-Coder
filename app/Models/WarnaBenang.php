@@ -9,5 +9,5 @@ class WarnaBenang extends Model
 {
     use HasFactory;
     protected $table = 'warna_benang';
-    protected $fillable=['warna_benang'];
+    protected $fillable=['warna_benang','kode_warna'];
 }

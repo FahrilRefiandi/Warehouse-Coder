@@ -15,12 +15,21 @@ class BenangDatangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
         $data=BenangDatang::where('jumlah_benang','!=',0)->latest()->get();
         $rayon=BenangDatang::where('jenis_benang','RAYON')->sum('jumlah_benang');
         $tr=BenangDatang::where('jenis_benang','TR')->sum('jumlah_benang');
-        return view('backend.benang-datang',compact('data','rayon','tr'));
+        $value=NULL;
+        return view('backend.benang-datang',compact('data','rayon','tr','value'));
+    }
+
+    public function sortDate(Request $req){
+        $value=$req->tgl;
+        $data=BenangDatang::where('jumlah_benang','!=',0)->whereDate('tgl_benang_datang',$req->tgl)->latest()->get();
+        $rayon=BenangDatang::where('jenis_benang','RAYON')->whereDate('tgl_benang_datang',$req->tgl)->sum('jumlah_benang');
+        $tr=BenangDatang::where('jenis_benang','TR')->whereDate('tgl_benang_datang',$req->tgl)->sum('jumlah_benang');
+        return view('backend.benang-datang',compact('data','rayon','tr','value'));
     }
 
 

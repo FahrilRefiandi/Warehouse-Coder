@@ -15,6 +15,7 @@ class CreateWarnaBenang extends Migration
     {
         Schema::create('warna_benang', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_warna')->unique();
             $table->string('warna_benang')->unique();
             $table->timestamps();
         });

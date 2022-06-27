@@ -27,6 +27,7 @@ class WarnaBenangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'kode_warna'=>'required|unique:warna_benang',
             'warna_benang'=>'required|unique:warna_benang'
         ]);
 
@@ -45,12 +46,15 @@ class WarnaBenangController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $request->validate([
+            'edit_kode_warna' => ['required','string','unique:warna_benang,kode_warna,'.$request->id],
             'edit_warna_benang' => ['required','string','unique:warna_benang,warna_benang,'.$request->id],
         ]);
 
         WarnaBenang::where('id',$request->id)->update([
-            'warna_benang'=>$request->edit_warna_benang
+            'kode_warna'  =>$request->edit_kode_warna,
+            'warna_benang'=>$request->edit_warna_benang,
         ]);
 
         return redirect()->back()->with('tambah',"Warna $request->edit_warna_benang berhasil diubah");
