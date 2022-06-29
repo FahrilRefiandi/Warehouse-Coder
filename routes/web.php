@@ -7,9 +7,9 @@ use App\Http\Controllers\WarnaBenangController;
 use App\Http\Controllers\SatuanBenangController;
 use App\Http\Controllers\ProduksiLembaranController;
 use App\Http\Controllers\MotifSarungController;
-use App\Http\Controllers\PindahkanSarungController;
 use App\Http\Controllers\SarungController;
 use App\Http\Controllers\MesinController;
+use App\Http\Controllers\PengirimanController;
 use App\Http\Controllers\ShiftKerjaController;
 
 /*
@@ -50,8 +50,8 @@ Route::resource('/sarung', SarungController::class)->middleware(['wh1']);
 
 // Pindahkan Sarung
 // Pindahkan Ke WH2
-Route::get('/pindahkan-sarung/2',[PindahkanSarungController::class,'pindahkanSarungWh2'])->middleware(['wh1']);
-Route::post('/pindahkan-sarung/2/{id}',[PindahkanSarungController::class,'pindahkanSarungWh2Post'])->middleware(['wh1']);
+Route::get('/kirim-barang/napes',[PengirimanController::class,'kirimKeNapes'])->middleware(['wh1']);
+Route::post('/kirim-barang/napes/{id}',[PengirimanController::class,'kirimKeNapesPost'])->middleware(['wh1']);
 
 // Pindahkan Sarung
 

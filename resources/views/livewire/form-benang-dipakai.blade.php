@@ -131,11 +131,6 @@
             </div>
             <hr>
 
-            {{ 'Id Selected : ' }}
-            @foreach ($pilihBenang as $item)
-                {{ $item . ',' }}
-            @endforeach
-
             {{-- <br>
             @foreach ($filterBenang as $item)
             {{$item}}
@@ -160,8 +155,8 @@
                             <td>
                                 <div class="form-group">
 
-                                    <select class="form-control selectpicker" name="varian_benang[{{$i}}]" {{-- wire:model="pilihBenang.0" --}}
-                                        autofocus required data-live-search="true">
+                                    <select class="form-control selectpicker" name="varian_benang[{{ $i }}]"
+                                        {{-- wire:model="pilihBenang.0" --}} autofocus required data-live-search="true">
                                         <option value="0">---Pilih Benang---</option>
                                         @foreach ($benangNoFilter as $item)
                                             <option value="{{ $item->id }}">
@@ -177,8 +172,8 @@
                             <td>
                                 <div class="form-group">
                                     <input type="number" step="any" class="form-control"
-                                        name="jumlah_pakai_varian[{{$i}}]" min="0" placeholder="100"
-                                        value="{{ old("jumlah_pakai_varian[$i]") }}" autofocus>
+                                        name="jumlah_pakai_varian[{{ $i }}]" min="0"
+                                        placeholder="100" value="{{ old("jumlah_pakai_varian[$i]") }}" autofocus>
                                     @error("jumlah_pakai_varian[$i]")
                                         <small class="text-danger ml-3">{{ $message }}</small>
                                     @enderror
@@ -207,13 +202,28 @@
             <hr>
 
             <div class="form-group">
-                <label for="exampleInputPassword1">Tanggal Produksi<small class="text-danger"
-                        style="font-size: 18px">*</small></label>
-                <input type="date" class="form-control" name="tanggal_produksi"
-                    value="{{ old('tanggal_produksi') }}" autofocus>
-                @error('tanggal_produksi')
+                <label for="exampleInputPassword1">Perkiraan Lembar</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" name="perkiraan_lembar" step="any"
+                        placeholder="100" value="{{ old('perkiraan_lembar') }}" autofocus>
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2">KG</span>
+                    </div>
+                </div>
+                @error('perkiraan_lembar')
                     <small class="text-danger ml-3">{{ $message }}</small>
                 @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">Tanggal Produksi</label>
+                <input type="date" class="form-control" name="tanggal_produksi"
+                    value="{{ old('tanggal_produksi') }}" autofocus>
+                @if ($errors->has('tanggal_produksi'))
+                    <small class="text-danger ml-3">{{ $message }}</small>
+                @else
+                    <small class="text-muted ml-3">Kosongi untuk waktu sekarang.</small>
+                @endif
             </div>
 
     </div>

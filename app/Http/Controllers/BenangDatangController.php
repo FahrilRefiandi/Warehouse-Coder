@@ -62,7 +62,7 @@ class BenangDatangController extends Controller
                     'jumlah_benang' => $request->jumlah_benang_rayon[$i],
                     'satuan' => "KG",
                     'warna_benang' => $request->warna_benang_rayon[$i],
-                    'tgl_benang_datang' => $request->created_at,
+                    'tanggal' => $request->created_at,
                 ]);
             }
         }
@@ -75,7 +75,7 @@ class BenangDatangController extends Controller
                     'jumlah_benang' => $request->jumlah_benang_tr[$i],
                     'satuan' => "KG",
                     'warna_benang' => $request->warna_benang_tr[$i],
-                    'tgl_benang_datang' => $request->created_at,
+                    'tanggal' => $request->created_at,
                 ]);
             }
         }
@@ -114,7 +114,6 @@ class BenangDatangController extends Controller
 
             'jumlah_benang' => 'required',
             'warna_benang' => 'required',
-            // 'created_at' => 'date',
         ]);
 
         BenangDatang::where('id',$id)->update([

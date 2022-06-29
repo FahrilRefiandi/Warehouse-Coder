@@ -42,6 +42,14 @@
                         </button>
                     </div>
                 @endif
+                @if (session('error'))
+                    <div class="alert alert-danger mb-4 alert-dismissible fade show" role="alert">
+                        <strong>Error.</strong> {{ session('error') }}.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
 
 
                 <div class="table-responsive">
@@ -53,7 +61,8 @@
                                 {{-- <th>Nama Barang</th> --}}
                                 <th>Warna Benang</th>
                                 <th>Jumlah Pakai</th>
-                                <th>Waktu</th>
+                                <th>Tanggal Produksi</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -64,7 +73,8 @@
                                 {{-- <th>Nama Benang</th> --}}
                                 <th>Warna Benang</th>
                                 <th>Jumlah Pakai</th>
-                                <th>Waktu</th>
+                                <th>Tanggal Produksi</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -101,10 +111,16 @@
                                             {{ $jumlahPakai . ' ' . $item->satuan .','}}
                                         @endforeach
                                     </td>
-                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:mm  DD-MM-Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('DD/MM/Y') }}</td>
+                                    <td>{{ $item->status_pengiriman }}</td>
                                     <td class="text-center" style="width:10%">
-                                        <a href="{{ url("/produksi-lembaran/$item->id") }}"
-                                            class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i>
+                                        <a @if ($item->status_pengiriman == 'Belum Dikirim')
+                                            href="{{ url("/produksi-lembaran/$item->id") }}"
+                                            class="btn btn-outline-primary"
+                                            @else
+                                            class="btn btn-outline-primary disabled"
+                                        @endif><i class="fas fa-pencil-alt"></i>
+
                                         </a>
                                     </td>
                                 </tr>
@@ -117,7 +133,6 @@
 
     </div>
     <!-- /.container-fluid -->
-
 
     {{-- modal --}}
     <!-- Modal -->

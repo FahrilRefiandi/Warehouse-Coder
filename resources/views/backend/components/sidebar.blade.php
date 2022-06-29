@@ -33,17 +33,17 @@
     </li>
 
     <!-- Nav Item - Data -->
-    <li class="nav-item active">
+    {{-- <li class="nav-item active">
         <a class="nav-link" href="{{ url('/sarung') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Sarung</span></a>
-    </li>
+    </li> --}}
 
 
     <li class="nav-item active">
-        <a class="nav-link" href="{{ url('/pindahkan-sarung/2') }}">
+        <a class="nav-link" href="{{ url('/kirim-barang/napes') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Kirim Ke WH 2</span></a>
+            <span>Kirim Ke Napes</span></a>
     </li>
 
     <!-- Divider -->
@@ -99,13 +99,13 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Managemen Data :</h6>
-                <a class="collapse-item" href="{{url('/jenis-benang')}}">Jenis Benang</a>
+                {{-- <a class="collapse-item" href="{{url('/jenis-benang')}}">Jenis Benang</a> --}}
                 <a class="collapse-item" href="{{url('/warna')}}">Warna</a>
-                <a class="collapse-item" href="{{url('/satuan')}}">Satuan</a>
+                {{-- <a class="collapse-item" href="{{url('/satuan')}}">Satuan</a> --}}
                 <a class="collapse-item" href="{{url('/mesin')}}">Mesin</a>
                 <a class="collapse-item" href="{{url('/shift-kerja')}}">Shift Kerja</a>
                 <h6 class="collapse-header">Data Sarung:</h6>
-                <a class="collapse-item" href="{{url('/motif-sarung')}}">Motif Sarung</a>
+                <a class="collapse-item" href="{{url('/motif-sarung')}}">Motif</a>
 
                 {{-- <a class="collapse-item" href="{{url('/kategori-barang')}}">Kategori Barang</a>
                 <a class="collapse-item" href="{{url('/satuan-barang')}}">Satuan Barang</a>

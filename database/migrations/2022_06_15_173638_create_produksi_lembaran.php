@@ -21,6 +21,9 @@ class CreateProduksiLembaran extends Migration
             $table->string('satuan');
             $table->integer('mesin_id');
             $table->string('motif');
+            $table->string('perkiraan_lembar')->nullable();
+            $table->date('tanggal_produksi');
+            $table->date('tanggal_pengiriman')->nullable();
             $table->enum('status_pengiriman', ['Belum Dikirim', 'Terkirim'])->default('Belum Dikirim');
             $table->timestamps();
         });

@@ -38,6 +38,11 @@ class ProduksiLembaranController extends Controller
             'varian_benang.*' => 'required',
             'jumlah_pakai_varian.*' => 'required',
         ]);
+
+
+        if($request->tanggal_produksi ==null){
+            $request->tanggal_produksi=now();
+        }
         // dd($request->all());
         $benangDatang=BenangDatang::where('id',$request->pilih_benang)->first();
         $loop=1;
@@ -79,6 +84,8 @@ class ProduksiLembaranController extends Controller
                 'mesin_id' => $request->mesin,
                 'motif' => $request->motif,
                 'shift_kerja_id' => $request->shift,
+                'perkiraan_lembar' => $request->perkiraan_lembar,
+                'tanggal_produksi' => $request->tanggal_produksi,
 
             ]);
             // pengurangan jumlah benang
@@ -104,6 +111,9 @@ class ProduksiLembaranController extends Controller
     public function show($id)
     {
         $data=ProduksiLembaran::findOrFail($id);
+        if($data->status_pengiriman == 'Terkirim'){
+            return redirect('/produksi-lembaran')->with('error','Data ini telah dikirimkan');
+        }
         $sisa=BenangDatang::where('id',$data->benang_datang_id)->first();
 
 

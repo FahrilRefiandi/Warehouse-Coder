@@ -49,20 +49,20 @@
             <thead style="background-color: #6D70C6" class="text-light">
                 <tr class="text-center" >
                     <th style="width:5%">No</th>
-                    <th>Kode Produksi</th>
-                    <th>Warna Sarung</th>
+                    <th>Jenis Benang</th>
+                    <th>Warna Benang</th>
                     <th>Status</th>
-                    <th>Waktu</th>
+                    <th>Tanggal Pengiriman</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tfoot style="background-color: #6D70C6" class="text-light">
                 <tr class="text-center" >
                     <th>No</th>
-                    <th>Kode Produksi</th>
-                    <th>Warna Sarung</th>
+                    <th>Jenis Benang</th>
+                    <th>Warna Benang</th>
                     <th>Status</th>
-                    <th>Waktu</th>
+                    <th>Tanggal Pengiriman</th>
                     <th>Action</th>
                 </tr>
             </tfoot>
@@ -71,32 +71,63 @@
                     $bg=['btn-success','btn-primary'];
                 @endphp
                 @foreach ($data as $item)
+                @php
+                $item->jumlah_pakai = explode(',', $item->jumlah_pakai);
+                $idBenang = explode(',', $item->benang_datang_id);
+                @endphp
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->kode_sarung }}</td>
-                        <td>{{ $item->warna_sarung  }}</td>
-                        {{-- <td>{{ $item->motif_sarung}}</td> --}}
-                        {{-- <td>{{ $item->stok_sarung .' '. $item->satuan}}</td> --}}
-                        @if ($item->status == 'tersedia')
+                        <td>
+                            @php
+                            for ($i=0; $i < count($idBenang); $i++) {
+                                // echo $idBenang[$i].'<br>';
+                                $benang[$i]=App\Models\BenangDatang::where('id',$idBenang[$i])->first();
+                                echo($benang[$i]->jenis_benang.',');
+                            }
+                            @endphp
+                        </td>
+                        <td>
+                            @php
+                            for ($i=0; $i < count($idBenang); $i++) {
+                                // echo $idBenang[$i].'<br>';
+                                $warnaBenang[$i]=App\Models\BenangDatang::where('id',$idBenang[$i])->first();
+                                echo($warnaBenang[$i]->warna_benang.',');
+                            }
+                            @endphp
+                        </td>
+                        @if ($item->status_pengiriman == 'Belum Dikirim')
                             <td class="text-center" >
-                                <button type="button" class="btn {{ $bg[1] }} btn-sm rounded-pill" data-toggle="tooltip" data-placement="top" title="Barang Tersedia Di Warehouse 1 (Belum Dikirim Ke Warehouse 2).">{{ ucfirst($item->status) }}</button>
+                                <button type="button" class="btn {{ $bg[1] }} btn-sm rounded-pill" data-toggle="tooltip" data-placement="top" title="Barang Tersedia Di Warehouse 1 (Belum Dikirim Ke Warehouse 2).">{{ ucfirst($item->status_pengiriman) }}</button>
                             </td>
                         @else
                             <td class="text-center" >
-                                <button type="button"  class="btn {{ $bg[0] }} btn-sm rounded-pill" data-toggle="tooltip" data-placement="top" title="Barang Telah Dikirim Ke Warehouse 2.">{{ ucfirst($item->status) }}</button>
+                                <button type="button"  class="btn {{ $bg[0] }} btn-sm rounded-pill" data-toggle="tooltip" data-placement="top" title="Barang Telah Dikirim Ke Warehouse 2.">{{ ucfirst($item->status_pengiriman) }}</button>
                             </td>
                         @endif
 
-                        <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:mm  DD-MM-Y') }}</td>
+                        @if ($item->tanggal_pengiriman == null)
+                            <td class="text-center" >-</td>
+                            @else
+                            <td>{{ \Carbon\Carbon::parse($item->tanggal_pengiriman)->isoFormat('DD/MM/YYYY') }}</td>
+                        @endif
 
                         <td class="text-center" style="width:10%" >
 
-                            <form action="{{ url("/pindahkan-sarung/2/$item->id") }}" method="post" class="d-inline" >
+                            <form action="{{ url("/kirim-barang/napes/$item->id") }}" method="post" class="d-inline" >
                                 @csrf
-                                <button type="submit" onclick="return confirm('Anda yakin sarung {{ $item->kode_sarung .' '. $item->jumlah_benang .' '. $item->singkatan }} akan dikirim ke warehouse 2.?')" class="btn btn-outline-primary" @if ($item->status == 'terkirim') disabled @else data-toggle="tooltip" data-placement="top" title="Kirimkan Sarung Ke Warehouse 2." @endif ><i class="fas fa-truck-loading"></i></button>
+                                <button type="submit" onclick="return confirm('Anda yakin dikirim ke napes.?')" class="btn btn-outline-primary" @if ($item->status_pengiriman == 'Terkirim') disabled @else data-toggle="tooltip" data-placement="top" title="Kirimkan Napes." @endif ><i class="fas fa-truck-loading"></i></button>
                             </form>
                             <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#showDataSarung"
-                            id="showModalDetailSarung" data-id="{{$item->id }}" data-kode_produksi="{{$item->kode_sarung }}" data-warna_sarung="{{$item->warna_sarung }}" data-motif_sarung="{{ $item->motif_sarung }}" data-stok_sarung="{{ $item->stok_sarung .' '.$item->satuan }}" data-satuan="{{ $item->satuan }}" data-status="{{ ucfirst($item->status) }}" data-tgl="{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:mm  DD-MM-Y') }}"
+                            id="showModalDetailSarung" data-id="{{$item->id }}" data-benang_dasar="{{$benang[0]->jenis_benang }}"
+                            @php
+                            echo("data-varian_benang='");
+                            for ($i=1; $i < count($idBenang); $i++) {
+
+                                $benang[$i]=App\Models\BenangDatang::where('id',$idBenang[$i])->first();
+                                echo($benang[$i]->jenis_benang.':'.$item->jumlah_pakai[$i] .' KG'.',');
+                            }
+                            echo("'");
+                             @endphp data-jumlah_benang_dasar="{{$item->jumlah_pakai[0] .' KG' }}" data-warna_benang_dasar="{{$warnaBenang[0]->warna_benang }}"  data-status="{{ ucfirst($item->status_pengiriman) }}" data-tgl="{{ \Carbon\Carbon::parse($item->tanggal_produksi)->isoFormat('DD/MM/YYYY') }}"
                             ><i class="fas fa-info-circle"></i></button>
                         </td>
                     </tr>
@@ -131,27 +162,27 @@
                     <table class="table mt-2 ">
                         <tbody>
                           <tr>
-                            <td><b>Kode Produksi</b></td>
-                            <td><b id="kodeSarung"></b></td>
+                            <td><b>Benang Dasar</b></td>
+                            <td><b id="benangDasar"></b></td>
                           </tr>
                           <tr>
-                            <td><b>Warna Sarung</b></td>
-                            <td><b id="warnaSarung"></b></td>
+                            <td><b>Jumlah Pakai Benang Dasar</b></td>
+                            <td><b id="jumlahPakaiDasar"></b></td>
                           </tr>
                           <tr>
-                            <td><b>Motif Sarung</b></td>
-                            <td><b id="motifSarung"></b></td>
+                            <td><b>Warna Dasar</b></td>
+                            <td><b id="warnaDasar"></b></td>
                           </tr>
                           <tr>
-                            <td><b>Stok Sarung</b></td>
-                            <td><b id="stokSarung"></b></td>
+                            <td><b>Varian Benang</b></td>
+                            <td><b id="varianBenang"></b></td>
                           </tr>
                           <tr>
                             <td><b>Status</b></td>
                             <td><b id="status"></b></td>
                           </tr>
                           <tr>
-                            <td><b>Dibuat Pada </b></td>
+                            <td><b>Tanggal Produksi </b></td>
                             <td><b id="tgl"></b></td>
                           </tr>
                         </tbody>
@@ -187,15 +218,15 @@
 
 <script>
       $(document).on('click','#showModalDetailSarung' , function(event){
-        var kodeProduksi=$(this).data('kode_produksi')
+        var benangDasar=$(this).data('benang_dasar')
 
 
 
-        document.getElementById('modalKet').innerHTML=kodeProduksi;
-        document.getElementById('kodeSarung').innerHTML=kodeProduksi;
-        document.getElementById('warnaSarung').innerHTML=$(this).data('warna_sarung');
-        document.getElementById('motifSarung').innerHTML=$(this).data('motif_sarung');
-        document.getElementById('stokSarung').innerHTML=$(this).data('stok_sarung');
+        document.getElementById('modalKet').innerHTML=benangDasar;
+        document.getElementById('benangDasar').innerHTML=benangDasar;
+        document.getElementById('jumlahPakaiDasar').innerHTML=$(this).data('jumlah_benang_dasar');
+        document.getElementById('warnaDasar').innerHTML=$(this).data('warna_benang_dasar');
+        document.getElementById('varianBenang').innerHTML=$(this).data('varian_benang');
         document.getElementById('status').innerHTML=$(this).data('status');
         document.getElementById('tgl').innerHTML=$(this).data('tgl');
 
