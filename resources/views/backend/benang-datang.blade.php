@@ -9,7 +9,7 @@
             {{-- <a class="navbar-brand"> </a> --}}
             <form class="form-inline" method="POST" action="{{ url('/sort/benang-datang') }}">
                 @csrf
-                <input class="form-control mr-sm-2" type="date" placeholder="Search" @if($value) value="{{$value}}" @else value="2022-06-27" @endif name="tgl" aria-label="Search">
+                <input class="form-control mr-sm-2" type="date" placeholder="Search" @if($value) value="{{$value}}" @else value="{{\Carbon\Carbon::parse(now())->isoFormat('YYYY-MM-DD')}}" @endif name="tgl" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cari</button>
               </form>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Benang

@@ -31,27 +31,28 @@ Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('/benang-datang', BenangDatangController::class)->middleware(['wh1']);
-Route::post('/sort/benang-datang',[BenangDatangController::class,'sortDate'])->middleware(['wh1']);
+Route::resource('/benang-datang', BenangDatangController::class)->middleware(['napes']);
+Route::post('/sort/benang-datang',[BenangDatangController::class,'sortDate'])->middleware(['napes']);
 
 // Management Data WH1
-Route::resource('/jenis-benang', JenisBenangController::class)->middleware(['wh1']);
-Route::resource('/warna', WarnaBenangController::class)->middleware(['wh1']);
-Route::resource('/satuan', SatuanBenangController::class)->middleware(['wh1']);
-Route::resource('/motif-sarung', MotifSarungController::class)->middleware(['wh1']);
+Route::resource('/jenis-benang', JenisBenangController::class)->middleware(['napes']);
+Route::resource('/warna', WarnaBenangController::class)->middleware(['napes']);
+Route::resource('/satuan', SatuanBenangController::class)->middleware(['napes']);
+Route::resource('/motif-sarung', MotifSarungController::class)->middleware(['napes']);
 // Management Data WH1
 
 
-Route::resource('/produksi-lembaran', ProduksiLembaranController::class)->middleware(['wh1']);
-Route::resource('/mesin', MesinController::class)->middleware(['wh1']);
-Route::resource('/shift-kerja', ShiftKerjaController::class)->middleware(['wh1']);
+Route::resource('/produksi-lembaran', ProduksiLembaranController::class)->middleware(['napes']);
+Route::post('/sort/produksi-lembaran',[ProduksiLembaranController::class,'sortDate'])->middleware(['napes']);
+Route::resource('/mesin', MesinController::class)->middleware(['napes']);
+Route::resource('/shift-kerja', ShiftKerjaController::class)->middleware(['napes']);
 
-Route::resource('/sarung', SarungController::class)->middleware(['wh1']);
+Route::resource('/sarung', SarungController::class)->middleware(['napes']);
 
 // Pindahkan Sarung
 // Pindahkan Ke WH2
-Route::get('/kirim-barang/napes',[PengirimanController::class,'kirimKeNapes'])->middleware(['wh1']);
-Route::post('/kirim-barang/napes/{id}',[PengirimanController::class,'kirimKeNapesPost'])->middleware(['wh1']);
+Route::get('/kirim-barang/napes',[PengirimanController::class,'kirimKeNapes'])->middleware(['napes']);
+Route::post('/kirim-barang/napes/{id}',[PengirimanController::class,'kirimKeNapesPost'])->middleware(['napes']);
 
 // Pindahkan Sarung
 

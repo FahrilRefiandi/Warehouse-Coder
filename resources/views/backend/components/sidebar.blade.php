@@ -128,12 +128,12 @@
     </div>
 
     <!-- Account -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="{{ url('/profile') }}">
             <i class="fas fa-user"></i>
             <span> Profile</span>
         </a>
-    </li>
+    </li> --}}
     <li class="nav-item">
         <a class="nav-link" data-toggle="modal" data-target="#logoutModal">
             <i class="fas fa-sign-out-alt"></i>

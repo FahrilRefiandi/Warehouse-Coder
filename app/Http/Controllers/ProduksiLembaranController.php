@@ -16,8 +16,15 @@ class ProduksiLembaranController extends Controller
      */
     public function index()
     {
-        $data=ProduksiLembaran::latest()->get();
-        return view('backend.benang-dipakai',compact('data'));
+        $data=ProduksiLembaran::where('status_pengiriman','!=','Terkirim')->latest()->get();
+        $value=NULL;
+        return view('backend.benang-dipakai',compact('data','value'));
+    }
+
+    public function sortDate(Request $request){
+        $value=$request->tgl;
+        $data=ProduksiLembaran::whereDate('tanggal_produksi',$value)->latest()->get();
+        return view('backend.benang-dipakai',compact('data','value'));
     }
 
     /**
