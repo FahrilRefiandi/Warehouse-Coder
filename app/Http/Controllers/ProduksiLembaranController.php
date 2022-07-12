@@ -18,13 +18,13 @@ class ProduksiLembaranController extends Controller
     {
         $data=ProduksiLembaran::where('status_pengiriman','!=','Terkirim')->latest()->get();
         $value=NULL;
-        return view('backend.benang-dipakai',compact('data','value'));
+        return view('backend.napes.benang-dipakai',compact('data','value'));
     }
 
     public function sortDate(Request $request){
         $value=$request->tgl;
         $data=ProduksiLembaran::whereDate('tanggal_produksi',$value)->latest()->get();
-        return view('backend.benang-dipakai',compact('data','value'));
+        return view('backend.napes.benang-dipakai',compact('data','value'));
     }
 
     /**
@@ -124,7 +124,7 @@ class ProduksiLembaranController extends Controller
         $sisa=BenangDatang::where('id',$data->benang_datang_id)->first();
 
 
-        return view('backend.edit-benang-dipakai',compact('data','sisa'));
+        return view('backend.napes.edit-benang-dipakai',compact('data','sisa'));
     }
 
     /**

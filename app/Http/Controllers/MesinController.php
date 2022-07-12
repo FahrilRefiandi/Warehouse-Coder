@@ -15,10 +15,10 @@ class MesinController extends Controller
     public function index()
     {
         $data=Mesin::latest()->get();
-        return view('backend.mesin',compact('data'));
+        return view('backend.napes.mesin',compact('data'));
     }
 
-    
+
 
     /**
      * Store a newly created resource in storage.

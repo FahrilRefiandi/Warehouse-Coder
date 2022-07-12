@@ -15,7 +15,7 @@ class ShiftKerjaController extends Controller
     public function index()
     {
         $data=ShiftKerja::orderBy('shift','ASC')->get();
-        return view('backend.shift-kerja',compact('data'));
+        return view('backend.napes.shift-kerja',compact('data'));
     }
 
     /**

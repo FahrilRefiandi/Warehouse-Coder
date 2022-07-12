@@ -21,7 +21,7 @@ class BenangDatangController extends Controller
         $rayon=BenangDatang::where('jenis_benang','RAYON')->sum('jumlah_benang');
         $tr=BenangDatang::where('jenis_benang','TR')->sum('jumlah_benang');
         $value=NULL;
-        return view('backend.benang-datang',compact('data','rayon','tr','value'));
+        return view('backend.napes.benang-datang',compact('data','rayon','tr','value'));
     }
 
     public function sortDate(Request $req){
@@ -29,7 +29,7 @@ class BenangDatangController extends Controller
         $data=BenangDatang::where('jumlah_benang','!=',0)->whereDate('tanggal',$req->tgl)->latest()->get();
         $rayon=BenangDatang::where('jenis_benang','RAYON')->whereDate('tanggal',$req->tgl)->sum('jumlah_benang');
         $tr=BenangDatang::where('jenis_benang','TR')->whereDate('tanggal',$req->tgl)->sum('jumlah_benang');
-        return view('backend.benang-datang',compact('data','rayon','tr','value'));
+        return view('backend.napes.benang-datang',compact('data','rayon','tr','value'));
     }
 
 
@@ -95,7 +95,7 @@ class BenangDatangController extends Controller
         $kategoriBenang=JenisBenang::orderBy('jenis_benang','asc')->get();
         $satuanBenang=SatuanBenang::orderBy('satuan','asc')->where('status','panjang')->get();
         $warnaBenang=WarnaBenang::orderBy('warna_benang','asc')->get();
-        return view('backend.edit-benang-datang',compact('data','kategoriBenang', 'satuanBenang', 'warnaBenang'));
+        return view('backend.napes.edit-benang-datang',compact('data','kategoriBenang', 'satuanBenang', 'warnaBenang'));
     }
 
 

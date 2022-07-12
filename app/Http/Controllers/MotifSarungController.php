@@ -15,7 +15,7 @@ class MotifSarungController extends Controller
     public function index()
     {
         $data=MotifSarung::latest()->get();
-        return view('backend.motif-sarung',compact('data'));
+        return view('backend.napes.motif-sarung',compact('data'));
     }
 
     /**

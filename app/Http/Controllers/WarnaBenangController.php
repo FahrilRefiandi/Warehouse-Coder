@@ -15,7 +15,7 @@ class WarnaBenangController extends Controller
     public function index()
     {
         $data=WarnaBenang::latest()->get();
-        return view('backend.warna-benang',compact('data'));
+        return view('backend.napes.warna-benang',compact('data'));
     }
 
     /**
@@ -46,7 +46,7 @@ class WarnaBenangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $request->validate([
             'edit_kode_warna' => ['required','string','unique:warna_benang,kode_warna,'.$request->id],
             'edit_warna_benang' => ['required','string','unique:warna_benang,warna_benang,'.$request->id],

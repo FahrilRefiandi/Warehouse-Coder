@@ -11,7 +11,7 @@ class PengirimanController extends Controller
     public function kirimKeNapes()
     {
         $data=ProduksiLembaran::latest()->get();
-        return view('backend.kirim-ke-napes',compact('data'));
+        return view('backend.napes.kirim-ke-napes',compact('data'));
     }
 
     public function kirimKeNapesPost(Request $request,$id)

@@ -51,7 +51,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="{{ url('/kirim-barang/napes') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Kirim Ke Napes</span></a>
+            <span>Kirim Ke Bandaran</span></a>
     </li>
     @elseif(Auth::user()->role == 'wh2')
     <li class="nav-item active">
