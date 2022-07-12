@@ -11,6 +11,14 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
+    @if (Auth::user()->role == 'owner')
+    <li class="nav-item active">
+        <a class="nav-link" href="{{url('/dashboard')}}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    @elseif(Auth::user()->role == 'wh1')
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
         <a class="nav-link" href="{{url('/dashboard')}}">
@@ -45,6 +53,13 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Kirim Ke Napes</span></a>
     </li>
+    @elseif(Auth::user()->role == 'wh2')
+    <li class="nav-item active">
+        <a class="nav-link" href="{{url('/dashboard')}}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+    @endif
 
     <!-- Divider -->
     <hr class="sidebar-divider">

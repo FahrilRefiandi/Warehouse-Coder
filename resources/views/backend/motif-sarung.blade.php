@@ -54,8 +54,8 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->kode_motif }}</td>
                                     <td>{{ $item->motif_sarung }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->updated_at)->isoFormat('HH:m  D-MM-Y') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:m  D-MM-Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->updated_at)->isoFormat('DD/MM/YYYY') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('DD/MM/YYYY') }}</td>
                                     <td class="text-center" style="width:10%" >
                                         <button  data-toggle="modal" data-target="#editModal" id="editMotifSarung" data-id="{{$item->id }}" data-motif_sarung="{{$item->motif_sarung }}" data-kode_motif="{{$item->kode_motif }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></button>
                                         <form action="{{ url("/motif-sarung/$item->id") }}" method="post" class="d-inline" >

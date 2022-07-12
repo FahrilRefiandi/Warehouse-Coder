@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BenangDatangController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JenisBenangController;
 use App\Http\Controllers\WarnaBenangController;
 use App\Http\Controllers\SatuanBenangController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\SarungController;
 use App\Http\Controllers\MesinController;
 use App\Http\Controllers\PengirimanController;
 use App\Http\Controllers\ShiftKerjaController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +29,9 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Route::get('/dashboard', function () {
-    return view('backend.dashboard');
-})->middleware(['auth'])->name('dashboard');
+
+Route::get('/dashboard', [DashboardController::class,'index'])->middleware(['auth'])->name('dashboard');
+
 
 Route::resource('/benang-datang', BenangDatangController::class)->middleware(['napes']);
 Route::post('/sort/benang-datang',[BenangDatangController::class,'sortDate'])->middleware(['napes']);

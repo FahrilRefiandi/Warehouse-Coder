@@ -21,7 +21,7 @@ class OwnerMiddleware
             if (Auth::user()->role == 'owner') {
                 return $next($request);
             }else{
-                return redirect('/dashboard');
+                return redirect('/owner/dashboard');
             }
         }else{
             return redirect('/login');
