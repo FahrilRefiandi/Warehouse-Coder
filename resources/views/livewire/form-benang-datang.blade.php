@@ -36,10 +36,10 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">Warna Benang<small class="text-danger"
                                 style="font-size: 18px">*</small></label>
-                        <select class="custom-select" name="warna_benang_rayon[]" autofocus>
+                        <select class="form-control selectpicker" name="warna_benang_rayon[]" autofocus required data-live-search="true">
                             <option value="">---Pilih Warna Benang---</option>
                             @foreach ($warnaBenang as $item)
-                                <option value="{{ $item->warna_benang }}">{{ $item->warna_benang }}
+                                <option value="{{ $item->warna_benang }}">{{ $item->warna_benang .' | '.$item->kode_warna }}
                                 </option>
                             @endforeach
                         </select>
@@ -83,14 +83,14 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">Warna Benang<small class="text-danger"
                                 style="font-size: 18px">*</small></label>
-                        <select class="custom-select" name="warna_benang_tr[]" autofocus>
+                        <select class="form-control selectpicker" name="warna_benang_tr[]" autofocus required data-live-search="true">
                             <option value="">---Pilih Warna Benang---</option>
                             @foreach ($warnaBenang as $item)
                                 @if (old('warna_benang') == $item->id)
                                     <option value="{{ $item->warna_benang }}" selected>
                                         {{ $item->warna_benang }}</option>
                                 @endif
-                                <option value="{{ $item->warna_benang }}">{{ $item->warna_benang }}
+                                <option value="{{ $item->warna_benang }}">{{ $item->warna_benang .' | '.$item->kode_warna }}
                                 </option>
                             @endforeach
                         </select>

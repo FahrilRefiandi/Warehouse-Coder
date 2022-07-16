@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('nama');
             $table->string('username')->unique();
             $table->string('password');
-            $table->enum('role', ['null','owner','wh1','wh2'])->default('null');
+            $table->enum('role', ['null','owner','kantor','wh1','wh2'])->default('null');
             $table->string('foto_profil')->default('default-user.png');
             $table->rememberToken();
             $table->timestamps();

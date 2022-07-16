@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
 
         'napes' => \App\Http\Middleware\napesMiddleware::class,
         'owner' => \App\Http\Middleware\OwnerMiddleware::class,
+        'kantor' => \App\Http\Middleware\KantorMiddleware::class,
     ];
 }

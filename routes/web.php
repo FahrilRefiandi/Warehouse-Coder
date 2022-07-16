@@ -59,3 +59,4 @@ Route::post('/kirim-barang/napes/{id}',[PengirimanController::class,'kirimKeNape
 // Pindahkan Sarung
 
 require __DIR__.'/auth.php';
+require __DIR__.'/kantor.php';

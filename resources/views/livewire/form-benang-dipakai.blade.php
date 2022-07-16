@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Mesin<small class="text-danger"
                                 style="font-size: 18px">*</small></label>
-                        <select class="custom-select" name="mesin" autofocus>
+                        <select class="form-control selectpicker" data-live-search="true" name="mesin" autofocus>
                             <option value="">---Pilih Mesin---</option>
                             @foreach ($mesin as $item)
                                 @if (old('mesin') == $item->id)
@@ -76,7 +76,7 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Motif<small class="text-danger"
                                 style="font-size: 18px">*</small></label>
-                        <select class="custom-select" name="motif" autofocus>
+                        <select class="form-control selectpicker" name="motif" autofocus data-live-search="true">
                             <option value="">---Pilih Motif---</option>
                             @foreach ($motif as $item)
                                 @if (old('motif') == $item->motif_sarung)

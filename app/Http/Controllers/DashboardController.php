@@ -25,16 +25,18 @@ class DashboardController extends Controller
             }
             $data['jumlahPakai']=$jumlah;
 
-            
+
 
             return view('backend.owner.dashboard', $data);
 
 
         }elseif(Auth::user()->role == 'wh1'){
-            return view('backend.dashboard');
+            return view('backend.napes.dashboard');
         }elseif(Auth::user()->role == 'wh2'){
             return view('backend.dashboard');
-        } else {
+        }elseif(Auth::user()->role == 'kantor'){
+            return view('backend.kantor.dashboard');
+        }else {
             echo '<h1>Access Denied</h1>';
         }
     }
