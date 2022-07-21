@@ -26,7 +26,7 @@ class DashboardController extends Controller
         }elseif(Auth::user()->role == 'wh1'){
             return view('backend.napes.dashboard');
         }elseif(Auth::user()->role == 'wh2'){
-            return view('backend.dashboard');
+            return view('backend.bandaran.dashboard');
         }elseif(Auth::user()->role == 'kantor'){
             return view('backend.kantor.dashboard');
         }else {
