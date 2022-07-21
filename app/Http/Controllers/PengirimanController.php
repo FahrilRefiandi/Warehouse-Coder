@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 class PengirimanController extends Controller
 {
     // Pindahkan Sarung Ke WH2
-    public function kirimKeNapes()
+    public function kirimKeBandaran()
     {
         $data=ProduksiLembaran::latest()->get();
-        return view('backend.napes.kirim-ke-napes',compact('data'));
+        return view('backend.napes.kirim-ke-bandaran',compact('data'));
     }
 
-    public function kirimKeNapesPost(Request $request,$id)
+    public function kirimKeBandaranPost(Request $request,$id)
     {
         ProduksiLembaran::where('id',$id)->update([
             'status_pengiriman'=>'Terkirim',

@@ -22,7 +22,7 @@ class KantorMiddleware
             if (Auth::user()->role == 'kantor') {
                 return $next($request);
             }else{
-                return redirect('/dashboard');
+                return redirect()->back();
             }
         }else{
             return redirect('/login');

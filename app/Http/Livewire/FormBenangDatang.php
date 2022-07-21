@@ -14,10 +14,10 @@ class FormBenangDatang extends Component
     public $tambahTr=1;
     public function render()
     {
-        $kategoriBenang=JenisBenang::orderBy('jenis_benang','asc')->get();
-        $satuanBenang=SatuanBenang::orderBy('satuan','asc')->where('status','panjang')->get();
+        // $kategoriBenang=JenisBenang::orderBy('jenis_benang','asc')->get();
+        // $satuanBenang=SatuanBenang::orderBy('satuan','asc')->where('status','panjang')->get();
         $warnaBenang=WarnaBenang::orderBy('warna_benang','asc')->get();
-        return view('livewire.form-benang-datang',compact('kategoriBenang', 'satuanBenang', 'warnaBenang'));
+        return view('livewire.form-benang-datang',compact('warnaBenang'));
     }
 
     public function tambahRayon()

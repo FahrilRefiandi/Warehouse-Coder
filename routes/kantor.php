@@ -3,4 +3,4 @@
 use App\Http\Controllers\KardusController;
 use Illuminate\Support\Facades\Route;
 
-Route::resource('/kardus', KardusController::class);
+Route::resource('/kardus', KardusController::class)->middleware('kantor');

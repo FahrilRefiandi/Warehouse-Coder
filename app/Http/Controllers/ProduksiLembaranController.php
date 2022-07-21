@@ -17,14 +17,16 @@ class ProduksiLembaranController extends Controller
     public function index()
     {
         $data=ProduksiLembaran::where('status_pengiriman','!=','Terkirim')->latest()->get();
+        $jumlahPakai=ProduksiLembaran::sum('grand_total');
         $value=NULL;
-        return view('backend.napes.benang-dipakai',compact('data','value'));
+        return view('backend.napes.benang-dipakai',compact('data','value','jumlahPakai'));
     }
 
     public function sortDate(Request $request){
         $value=$request->tgl;
         $data=ProduksiLembaran::whereDate('tanggal_produksi',$value)->latest()->get();
-        return view('backend.napes.benang-dipakai',compact('data','value'));
+        $jumlahPakai=ProduksiLembaran::whereDate('tanggal_produksi',$value)->sum('grand_total');
+        return view('backend.napes.benang-dipakai',compact('data','value','jumlahPakai'));
     }
 
     /**
@@ -46,6 +48,7 @@ class ProduksiLembaranController extends Controller
             'jumlah_pakai_varian.*' => 'required',
         ]);
 
+        // dd($request->all());
 
         if($request->tanggal_produksi ==null){
             $request->tanggal_produksi=now();
@@ -75,14 +78,17 @@ class ProduksiLembaranController extends Controller
         $jenisBenang=[];
         $jumlahPakai=[];
         $index=1;
+        // push benang dasar ke array
         array_push($jenisBenang,"$request->pilih_benang");
         array_push($jumlahPakai,$request->jumlah_pakai);
+
+        // push varian benang ke array
         foreach($request->varian_benang as $jumlah){
             array_push($jenisBenang,$request->varian_benang[$index]);
             array_push($jumlahPakai,$request->jumlah_pakai_varian[$index]);
             $index++;
         }
-
+        $grandTotal=$jumlahPakai;
 
             ProduksiLembaran::create([
                 'jumlah_pakai' => implode(",",$jumlahPakai),
@@ -93,6 +99,7 @@ class ProduksiLembaranController extends Controller
                 'shift_kerja_id' => $request->shift,
                 'perkiraan_lembar' => $request->perkiraan_lembar,
                 'tanggal_produksi' => $request->tanggal_produksi,
+                'grand_total' => array_sum($grandTotal),
 
             ]);
             // pengurangan jumlah benang

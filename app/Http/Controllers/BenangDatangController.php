@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BenangDatang;
-use App\Models\JenisBenang;
+// use App\Models\JenisBenang;
 use App\Models\SatuanBenang;
 use App\Models\WarnaBenang;
 use Illuminate\Http\Request;
@@ -92,10 +92,10 @@ class BenangDatangController extends Controller
     public function show($id)
     {
         $data=BenangDatang::findOrFail($id);
-        $kategoriBenang=JenisBenang::orderBy('jenis_benang','asc')->get();
+        // $kategoriBenang=JenisBenang::orderBy('jenis_benang','asc')->get();
         $satuanBenang=SatuanBenang::orderBy('satuan','asc')->where('status','panjang')->get();
         $warnaBenang=WarnaBenang::orderBy('warna_benang','asc')->get();
-        return view('backend.napes.edit-benang-datang',compact('data','kategoriBenang', 'satuanBenang', 'warnaBenang'));
+        return view('backend.napes.edit-benang-datang',compact('data', 'satuanBenang', 'warnaBenang'));
     }
 
 

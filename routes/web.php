@@ -53,8 +53,8 @@ Route::resource('/sarung', SarungController::class)->middleware(['napes']);
 
 // Pindahkan Sarung
 // Pindahkan Ke WH2
-Route::get('/kirim-barang/napes',[PengirimanController::class,'kirimKeNapes'])->middleware(['napes']);
-Route::post('/kirim-barang/napes/{id}',[PengirimanController::class,'kirimKeNapesPost'])->middleware(['napes']);
+Route::get('/kirim-barang/napes',[PengirimanController::class,'kirimKeBandaran'])->middleware(['napes']);
+Route::post('/kirim-barang/napes/{id}',[PengirimanController::class,'kirimKeBandaranPost'])->middleware(['napes']);
 
 // Pindahkan Sarung
 

@@ -115,7 +115,7 @@
 
                             <form action="{{ url("/kirim-barang/napes/$item->id") }}" method="post" class="d-inline" >
                                 @csrf
-                                <button type="submit" onclick="return confirm('Anda yakin dikirim ke napes.?')" class="btn btn-outline-primary" @if ($item->status_pengiriman == 'Terkirim') disabled @else data-toggle="tooltip" data-placement="top" title="Kirimkan Napes." @endif ><i class="fas fa-truck-loading"></i></button>
+                                <button type="submit" onclick="return confirm('Anda yakin dikirim ke Bandaran.?')" class="btn btn-outline-primary" @if ($item->status_pengiriman == 'Terkirim') disabled @else data-toggle="tooltip" data-placement="top" title="Kirim Ke Bandaran." @endif ><i class="fas fa-truck-loading"></i></button>
                             </form>
                             <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#showDataSarung"
                             id="showModalDetailSarung" data-id="{{$item->id }}" data-benang_dasar="{{$benang[0]->jenis_benang }}"

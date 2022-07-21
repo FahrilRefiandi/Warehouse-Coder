@@ -12,6 +12,7 @@ class BenangDatang extends Model
 
     protected $table = 'benang_datang';
     protected $guarded = ['id'];
+    protected $dates = ['tanggal'];
 
 
     // public function jenisBenang()

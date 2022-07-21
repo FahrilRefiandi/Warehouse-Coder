@@ -12,8 +12,13 @@
                 <input class="form-control mr-sm-2" type="date" placeholder="Search" @if($value) value="{{$value}}" @else value="{{\Carbon\Carbon::parse(now())->isoFormat('YYYY-MM-DD')}}" @endif name="tgl" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cari</button>
               </form>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Benang
+              @if ($value)
+              <a href="{{ url('/benang-datang') }}" class="btn btn-primary">Benang
+                Datang</a>
+              @else
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Benang
                 Datang</button>
+              @endif
         </nav>
 
 
@@ -124,16 +129,16 @@
 @endsection
 
 
-@section('datatableStyle')
+@push('styleCustom')
     <link href="{{ asset('asset/sb-admin') }}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     @livewireStyles
-@endsection
+@endpush
 
-@section('datatableScript')
+@push('scriptCustom')
     @livewireScripts
     <script src="{{ asset('asset/sb-admin') }}/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="{{ asset('asset/sb-admin') }}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="{{ asset('asset/sb-admin') }}/js/demo/datatables-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
-@endsection
+@endpush

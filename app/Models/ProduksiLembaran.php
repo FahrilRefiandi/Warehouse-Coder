@@ -11,4 +11,5 @@ class ProduksiLembaran extends Model
 
     protected $table = 'produksi_lembaran';
     protected $guarded = ['id'];
+    protected $dates = ['tanggal_produksi'];
 }

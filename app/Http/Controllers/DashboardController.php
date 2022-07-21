@@ -6,6 +6,7 @@ use App\Models\BenangDatang;
 use App\Models\ProduksiLembaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -15,17 +16,9 @@ class DashboardController extends Controller
         if (Auth::user()->role == 'owner') {
 
             $jumlah=0;
-            $data['totalBenang']=BenangDatang::whereDate('tanggal', now())->sum('jumlah_benang');
-            $produksiLembaran=ProduksiLembaran::whereDate('tanggal_produksi', now())->get();
-
-            for($i=0; $i<count($produksiLembaran); $i++){
-                for($j=0; $j<count(explode(',', $produksiLembaran[$i]->jumlah_pakai)); $j++){
-                    $jumlah+=explode(',', $produksiLembaran[$i]->jumlah_pakai)[$j];
-                }
-            }
-            $data['jumlahPakai']=$jumlah;
-
-
+            $bulanIni=Carbon::parse(now())->isoFormat('YYYY-MM');
+            $data['totalBenang']=BenangDatang::where('tanggal','like',"$bulanIni%")->sum('jumlah_benang');
+            $data['jumlahPakai']=ProduksiLembaran::where('tanggal_produksi','like',"$bulanIni%")->sum('grand_total');
 
             return view('backend.owner.dashboard', $data);
 
@@ -37,7 +30,7 @@ class DashboardController extends Controller
         }elseif(Auth::user()->role == 'kantor'){
             return view('backend.kantor.dashboard');
         }else {
-            echo '<h1>Access Denied</h1>';
+            return view('backend.components.akses-ditolak');
         }
     }
 }

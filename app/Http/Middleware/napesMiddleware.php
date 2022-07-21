@@ -18,10 +18,11 @@ class napesMiddleware
     public function handle(Request $request, Closure $next)
     {
         if(Auth::user() != null){
-            if (Auth::user()->role == 0) {
+            if (Auth::user()->role == 'wh1') {
+
                 return $next($request);
             }else{
-                return redirect('/dashboard');
+                return redirect()->back();
             }
         }else{
             return redirect('/login');

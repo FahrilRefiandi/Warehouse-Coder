@@ -18,8 +18,13 @@
                 <input class="form-control mr-sm-2" type="date" placeholder="Search" @if($value) value="{{$value}}" @else value="{{\Carbon\Carbon::parse(now())->isoFormat('YYYY-MM-DD')}}" @endif name="tgl" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cari</button>
               </form>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Produksi
+              @if ($value)
+              <a href="{{ url('/produksi-lembaran') }}" class="btn btn-primary">Produksi
+                Lembaran</a>
+              @else
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Produksi
                 Lembaran</button>
+              @endif
         </nav>
 
 
@@ -62,9 +67,9 @@
                             <tr class="text-center">
                                 <th style="width:5%">No</th>
                                 <th>Kategori Benang</th>
-                                {{-- <th>Nama Barang</th> --}}
                                 <th>Warna Benang</th>
                                 <th>Jumlah Pakai</th>
+                                <th>Grand Total</th>
                                 <th>Tanggal Produksi</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -74,12 +79,16 @@
                             <tr class="text-center">
                                 <th>No</th>
                                 <th>Kategori Benang</th>
-                                {{-- <th>Nama Benang</th> --}}
                                 <th>Warna Benang</th>
                                 <th>Jumlah Pakai</th>
+                                <th>Grand Total</th>
                                 <th>Tanggal Produksi</th>
                                 <th>Status</th>
                                 <th>Action</th>
+                            </tr>
+                            <tr>
+                                <td colspan="6"></td>
+                                <td colspan="2" >Jumlah Pakai : {{ $jumlahPakai}} KG</td>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -115,6 +124,7 @@
                                             {{ $jumlahPakai . ' ' . $item->satuan .','}}
                                         @endforeach
                                     </td>
+                                    <td>{{ $item->grand_total }} KG</td>
                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('DD/MM/Y') }}</td>
                                     <td>{{ $item->status_pengiriman }}</td>
                                     <td class="text-center" style="width:10%">
