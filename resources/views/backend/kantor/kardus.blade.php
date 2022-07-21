@@ -264,13 +264,13 @@
 
 @endsection
 
-@section('datatableStyle')
+@push('styleCustom')
     <link href="{{ asset('asset/sb-admin') }}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-@endsection
+@endpush
 
-@section('datatableScript')
+@push('scriptCustom')
     <script src="{{ asset('asset/sb-admin') }}/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="{{ asset('asset/sb-admin') }}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="{{ asset('asset/sb-admin') }}/js/demo/datatables-demo.js"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script> --}}
-@endsection
+@endpush

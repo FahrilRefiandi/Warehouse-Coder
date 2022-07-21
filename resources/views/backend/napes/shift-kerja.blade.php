@@ -59,8 +59,8 @@
                                     <td>{{ \Carbon\Carbon::parse($item->akhir_kerja)->isoFormat('HH:mm') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($item->akhir_kerja)->diffInHours($item->mulai_kerja) }} Jam </td>
                                     {{-- <td>{{ \Carbon\Carbon::parse(10 - 5)->diffForHuman() }}</td> --}}
-                                    <td>{{ \Carbon\Carbon::parse($item->updated_at)->isoFormat('HH:m  D-MM-Y') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:m  D-MM-Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->updated_at)->isoFormat('DD/MM/YYYY') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('DD/MM/YYYY') }}</td>
                                     <td class="text-center" style="width:10%" >
                                         <button  data-toggle="modal" data-target="#editModal" id="editShiftKerja" data-id="{{$item->id }}" data-shift="{{$item->shift }}" data-mulai_kerja="{{ $item->mulai_kerja }}" data-akhir_kerja="{{ $item->akhir_kerja }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></button>
                                         <form action="{{ url("/shift-kerja/$item->id") }}" method="post" class="d-inline" >
@@ -228,7 +228,7 @@
 
 @endsection
 
-@section('scriptCustom')
+@push('scriptCustom')
 
 <script>
       $(document).on('click','#editShiftKerja' , function(event){
@@ -251,4 +251,4 @@
 
 </script>
 
-@endsection
+@endpush

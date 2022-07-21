@@ -189,7 +189,7 @@
 
 @endsection
 
-@section('scriptCustom')
+@push('scriptCustom')
 
 <script>
       $(document).on('click','#editMotifSarung' , function(event){
@@ -210,4 +210,4 @@
 
 </script>
 
-@endsection
+@endpush

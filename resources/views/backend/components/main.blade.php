@@ -114,12 +114,8 @@
     @stack('scriptCustom')
 
     <!-- Page level custom scripts -->
-    <script src="{{ asset('asset/sb-admin') }}/js/demo/chart-area-demo.js"></script>
-    <script src="{{ asset('asset/sb-admin') }}/js/demo/chart-pie-demo.js"></script>
-
-
-
-    @yield('datatableScript')
+    {{-- <script src="{{ asset('asset/sb-admin') }}/js/demo/chart-area-demo.js"></script> --}}
+    {{-- {{-- <script src="{{ asset('asset/sb-admin') }}/js/demo/chart-pie-demo.js"></script> --}}
 
 </body>
 

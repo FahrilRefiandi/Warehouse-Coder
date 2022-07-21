@@ -195,12 +195,12 @@
 @endsection
 
 
-@section('datatableStyle')
+@push('styleCustom')
     <link href="{{ asset('asset/sb-admin') }}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-@endsection
+@endpush
 
-@section('datatableScript')
+@push('scriptCustom')
 
     <script src="{{ asset('asset/sb-admin') }}/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="{{ asset('asset/sb-admin') }}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
@@ -210,33 +210,27 @@
             $("body").tooltip({ selector: '[data-toggle=tooltip]' });
         });
     </script>
-@endsection
+    <script>
+        $(document).on('click','#showModalDetailSarung' , function(event){
+          var benangDasar=$(this).data('benang_dasar')
 
 
 
-@section('scriptCustom')
-
-<script>
-      $(document).on('click','#showModalDetailSarung' , function(event){
-        var benangDasar=$(this).data('benang_dasar')
-
-
-
-        document.getElementById('modalKet').innerHTML=benangDasar;
-        document.getElementById('benangDasar').innerHTML=benangDasar;
-        document.getElementById('jumlahPakaiDasar').innerHTML=$(this).data('jumlah_benang_dasar');
-        document.getElementById('warnaDasar').innerHTML=$(this).data('warna_benang_dasar');
-        document.getElementById('varianBenang').innerHTML=$(this).data('varian_benang');
-        document.getElementById('status').innerHTML=$(this).data('status');
-        document.getElementById('tgl').innerHTML=$(this).data('tgl');
+          document.getElementById('modalKet').innerHTML=benangDasar;
+          document.getElementById('benangDasar').innerHTML=benangDasar;
+          document.getElementById('jumlahPakaiDasar').innerHTML=$(this).data('jumlah_benang_dasar');
+          document.getElementById('warnaDasar').innerHTML=$(this).data('warna_benang_dasar');
+          document.getElementById('varianBenang').innerHTML=$(this).data('varian_benang');
+          document.getElementById('status').innerHTML=$(this).data('status');
+          document.getElementById('tgl').innerHTML=$(this).data('tgl');
 
 
 
-        // document.getElementById('modalKet').innerHTML=$(this).data('kode_produksi');
-        // document.getElementById('warnaSarung').innerHTML=$(this).data('warna_sarung');
+          // document.getElementById('modalKet').innerHTML=$(this).data('kode_produksi');
+          // document.getElementById('warnaSarung').innerHTML=$(this).data('warna_sarung');
 
-    })
+      })
 
-</script>
+  </script>
+@endpush
 
-@endsection

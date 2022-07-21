@@ -54,8 +54,8 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->kode_mesin }}</td>
                                     <td>{{ $item->nomor_mesin }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->updated_at)->isoFormat('HH:mm  D-MM-Y') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('HH:mm  D-MM-Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->updated_at)->isoFormat('DD/MM/YYYY') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->isoFormat('DD/MM/YYYY') }}</td>
                                     <td class="text-center" style="width:10%">
                                         <button  data-toggle="modal" data-target="#editModal" id="editMesin" data-id="{{$item->id }}" data-kode_mesin="{{$item->kode_mesin }}" data-nomor_mesin="{{$item->nomor_mesin }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></button>
                                         <form action="{{ url("/mesin/$item->id") }}" method="post" class="d-inline" >
@@ -188,7 +188,7 @@
 
 @endsection
 
-@section('scriptCustom')
+@push('scriptCustom')
 
 <script>
       $(document).on('click','#editMesin' , function(event){
@@ -208,4 +208,4 @@
 
 </script>
 
-@endsection
+@endpush
