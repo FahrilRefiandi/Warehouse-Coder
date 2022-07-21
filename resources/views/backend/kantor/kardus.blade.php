@@ -216,7 +216,7 @@
 
 @endsection
 
-@section('scriptCustom')
+@push('scriptCustom')
 
     <script>
         $(document).on('click', '#editKardus', function(event) {
@@ -262,7 +262,7 @@
         });
     </script>
 
-@endsection
+@endpush
 
 @push('styleCustom')
     <link href="{{ asset('asset/sb-admin') }}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
